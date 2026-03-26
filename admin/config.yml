@@ -1,0 +1,37 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "_products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Part Name", name: "title", widget: "string" }
+      - { label: "Brand", name: "brand", widget: "string" }
+      - { label: "Price (£)", name: "price", widget: "number" }
+      - { label: "Original Price (£) - optional", name: "original_price", widget: "number", required: false }
+      - { label: "Fits (compatibility)", name: "compatibility", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["engine", "suspension", "exhaust", "body"] }
+      - { label: "Make", name: "make", widget: "select", options: ["nissan", "toyota", "honda", "subaru", "mitsubishi"] }
+      - { label: "Stock Location", name: "stock", widget: "select", options: [{ label: "In Stock UK", value: "uk" }, { label: "Sourced from Japan", value: "jp" }] }
+      - { label: "Badge (optional, e.g. SALE or JDM)", name: "badge", widget: "string", required: false }
+      - { label: "Emoji Icon", name: "emoji", widget: "select", options: ["⚙️", "🔩", "💨", "🚗"] }
+      - { label: "Description", name: "description", widget: "text", required: false }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General"
+        name: "general"
+        file: "_data/settings.yml"
+        fields:
+          - { label: "Site Tagline", name: "tagline", widget: "string" }
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Phone Number", name: "phone", widget: "string", required: false }
+          - { label: "Ticker Bar Text", name: "ticker", widget: "string" }
