@@ -502,32 +502,3 @@ loadProducts();
 </script>
 </body>
 </html>
-```
-
----
-
-## PHASE 2 — Connect to Netlify
-
-1. Go to **netlify.com** → **Add new site → Import from GitHub**
-2. Select your `tjpworks` repo
-3. Leave build settings blank — click **Deploy**
-4. Once live, go to **Site settings → Identity → Enable Identity**
-5. Scroll down to **Git Gateway → Enable Git Gateway**
-6. Go to **Identity → Registration** → set to **Invite only** (so only you can log in)
-7. Click **Invite users** and invite your own email
-
----
-
-## PHASE 3 — Log Into Your CMS
-
-1. Go to `your-site-url.netlify.app/admin`
-2. Accept the email invite and set a password
-3. You'll see a clean dashboard — click **Products → New Product** to add parts
-
-From here your editing workflow is simply:
-```
-Go to yoursite.netlify.app/admin
-→ Click Products → New Product
-→ Fill in the form fields
-→ Click Publish
-→ Site rebuilds automatically in ~30 seconds ✓
