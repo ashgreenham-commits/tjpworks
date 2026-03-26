@@ -249,7 +249,28 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem
 .mobile-nav-links{list-style:none;display:flex;flex-direction:column;gap:0;clear:both}
 .mobile-nav-links a{display:block;padding:.85rem 0;font-size:.9rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--border);transition:color .2s}
 .mobile-nav-links a:hover{color:var(--gold)}
-
+/* ── VEHICLE SELECTOR ── */
+.vehicle-bar{background:var(--card);border-bottom:2px solid var(--gold);position:sticky;top:var(--nav-h);z-index:190}
+.vehicle-bar-inner{max-width:1400px;margin:0 auto;padding:.85rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.vehicle-bar-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);white-space:nowrap;flex-shrink:0}
+.vehicle-selects{display:flex;gap:0;flex:1;min-width:0}
+.v-select{flex:1;background:var(--card2);border:1px solid var(--border2);border-right:none;padding:.65rem .9rem;font-family:var(--font-body);font-size:.82rem;color:var(--white);outline:none;transition:border-color .2s;min-width:0;cursor:pointer}
+.v-select:last-child{border-right:1px solid var(--border2)}
+.v-select:focus{border-color:var(--gold);z-index:1;position:relative}
+.v-select:disabled{opacity:.4;cursor:not-allowed}
+.v-select option{background:var(--card2);color:var(--white)}
+.v-find-btn{background:var(--gold);color:#000;border:none;padding:.65rem 1.5rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;transition:background .2s;flex-shrink:0}
+.v-find-btn:hover{background:var(--gold-light)}
+.v-clear-btn{background:none;border:1px solid var(--border2);color:var(--mid);padding:.65rem 1rem;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.v-clear-btn:hover{border-color:var(--gold);color:var(--gold)}
+.vehicle-active-banner{background:var(--gold-dim);border:1px solid var(--gold);padding:.6rem 1.25rem;font-size:.8rem;font-weight:600;color:var(--gold);letter-spacing:.04em;display:none;margin-bottom:1rem}
+@media(max-width:768px){
+  .vehicle-bar-inner{gap:.6rem}
+  .vehicle-bar-label{display:none}
+  .vehicle-selects{flex-direction:column}
+  .v-select{border-right:1px solid var(--border2);border-bottom:none}
+  .v-select:last-child{border-bottom:1px solid var(--border2)}
+}
 /* ── RESPONSIVE ── */
 @media(max-width:1100px){
   .trust-bar-inner{grid-template-columns:repeat(2,1fr)}
@@ -323,7 +344,25 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem
     <div class="ticker-item"><span>Free UK Shipping over £150</span><span class="dot">●</span><span>Genuine JDM Parts</span><span class="dot">●</span><span>Next Day UK Stock</span><span class="dot">●</span><span>Nissan · Toyota · Honda · Subaru · Mitsubishi</span><span class="dot">●</span><span>Expert Fitment Advice</span><span class="dot">●</span><span>UK VAT Included</span><span class="dot">●</span></div>
   </div>
 </div>
-
+<!-- VEHICLE SELECTOR -->
+<div class="vehicle-bar">
+  <div class="vehicle-bar-inner">
+    <span class="vehicle-bar-label">🔍 Find parts for your car</span>
+    <div class="vehicle-selects">
+      <select class="v-select" id="vYear" onchange="onYearChange()">
+        <option value="">Year</option>
+      </select>
+      <select class="v-select" id="vMake" onchange="onMakeChange()" disabled>
+        <option value="">Make</option>
+      </select>
+      <select class="v-select" id="vModel" onchange="onModelChange()" disabled>
+        <option value="">Model</option>
+      </select>
+    </div>
+    <button class="v-find-btn" onclick="findPartsByVehicle()">Find Parts</button>
+    <button class="v-clear-btn" id="vClearBtn" onclick="clearVehicle()" style="display:none">✕ Clear Vehicle</button>
+  </div>
+</div>
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg-img"></div>
@@ -717,21 +756,21 @@ let cart = [];
 let activeCategory = '';
 
 const PLACEHOLDER_PRODUCTS = [
-  {id:'p1',title:'Turbine Housing SR20DET',brand:'OEM Nissan',price:189,original_price:240,compatibility:'Nissan S13 / S14 SR20DET',category:'engine',make:'nissan',stock:'uk',badge:'JDM',emoji:'⚙️'},
-  {id:'p2',title:'Coilover Kit GR-S',brand:'Tein',price:699,original_price:null,compatibility:'Toyota Supra A80 / MK4',category:'suspension',make:'toyota',stock:'jp',badge:null,emoji:'🔩'},
-  {id:'p3',title:'Cat-Back Exhaust System',brand:'HKS Hi-Power',price:449,original_price:520,compatibility:'Honda Civic Type R EK9',category:'exhaust',make:'honda',stock:'uk',badge:'SALE',emoji:'💨'},
-  {id:'p4',title:'EJ20 Short Block Assembly',brand:'OEM Subaru',price:1250,original_price:null,compatibility:'Subaru Impreza WRX GC8',category:'engine',make:'subaru',stock:'jp',badge:'JDM',emoji:'⚙️'},
-  {id:'p5',title:'Front Lip Splitter FRP',brand:'Varis',price:299,original_price:380,compatibility:'Mitsubishi Lancer Evo IX',category:'body',make:'mitsubishi',stock:'uk',badge:'SALE',emoji:'🚗'},
-  {id:'p6',title:'Air Intake System',brand:'Blitz SUS Power',price:179,original_price:null,compatibility:'Nissan Skyline R32/R33/R34',category:'exhaust',make:'nissan',stock:'uk',badge:null,emoji:'💨'},
-  {id:'p7',title:'LSD Helical Diff',brand:'Cusco Type RS',price:569,original_price:null,compatibility:'Toyota AE86 / Corolla',category:'engine',make:'toyota',stock:'jp',badge:'JDM',emoji:'⚙️'},
-  {id:'p8',title:'Adjustable Rear Camber Arms',brand:'Whiteline',price:129,original_price:159,compatibility:'Honda Integra DC2/DC5',category:'suspension',make:'honda',stock:'uk',badge:'SALE',emoji:'🔩'},
-  {id:'p9',title:'Carbon Rear Wing GT',brand:'Voltex',price:799,original_price:null,compatibility:'Subaru Impreza STI GD',category:'body',make:'subaru',stock:'jp',badge:null,emoji:'🚗'},
-  {id:'p10',title:'Brake Pad Set — Front',brand:'Dixcel ES',price:89,original_price:99,compatibility:'Honda Civic FK8 / FL5',category:'brakes',make:'honda',stock:'uk',badge:'SALE',emoji:'🛑'},
-  {id:'p11',title:'Oil Filter — High Performance',brand:'HKS',price:28,original_price:null,compatibility:'Nissan SR20 / RB Series',category:'servicing',make:'nissan',stock:'uk',badge:null,emoji:'🛢️'},
-  {id:'p12',title:'Radiator Aluminium 3-Core',brand:'Koyorad',price:349,original_price:null,compatibility:'Toyota Supra JZA80',category:'cooling',make:'toyota',stock:'jp',badge:'JDM',emoji:'🌡️'},
-  {id:'p13',title:'Short Shift Kit',brand:'Cusco',price:199,original_price:240,compatibility:'Subaru Impreza / WRX',category:'interior',make:'subaru',stock:'uk',badge:'SALE',emoji:'🪑'},
-  {id:'p14',title:'Lowering Springs',brand:'Eibach',price:249,original_price:null,compatibility:'Honda Civic FK8',category:'suspension',make:'honda',stock:'uk',badge:null,emoji:'🔩'},
-  {id:'p15',title:'Spark Plugs Iridium (x4)',brand:'NGK',price:64,original_price:null,compatibility:'Honda B/K/F Series',category:'servicing',make:'honda',stock:'uk',badge:null,emoji:'🛢️'},
+  {id:'p1',title:'Turbine Housing SR20DET',brand:'OEM Nissan',price:189,original_price:240,compatibility:'Nissan S13 / S14 SR20DET',category:'engine',make:'nissan',models:['S13','S14'],years:[1989,1990,1991,1992,1993,1994,1995,1996,1997,1998],stock:'uk',badge:'JDM',emoji:'⚙️'},
+  {id:'p2',title:'Coilover Kit GR-S',brand:'Tein',price:699,original_price:null,compatibility:'Toyota Supra A80 / MK4',category:'suspension',make:'toyota',models:['Supra'],years:[1993,1994,1995,1996,1997,1998,1999,2000,2001,2002],stock:'jp',badge:null,emoji:'🔩'},
+  {id:'p3',title:'Cat-Back Exhaust System',brand:'HKS Hi-Power',price:449,original_price:520,compatibility:'Honda Civic Type R EK9',category:'exhaust',make:'honda',models:['Civic'],years:[1997,1998,1999,2000],stock:'uk',badge:'SALE',emoji:'💨'},
+  {id:'p4',title:'EJ20 Short Block Assembly',brand:'OEM Subaru',price:1250,original_price:null,compatibility:'Subaru Impreza WRX GC8',category:'engine',make:'subaru',models:['Impreza'],years:[1992,1993,1994,1995,1996,1997,1998,1999,2000],stock:'jp',badge:'JDM',emoji:'⚙️'},
+  {id:'p5',title:'Front Lip Splitter FRP',brand:'Varis',price:299,original_price:380,compatibility:'Mitsubishi Lancer Evo IX',category:'body',make:'mitsubishi',models:['Lancer Evo'],years:[2005,2006,2007],stock:'uk',badge:'SALE',emoji:'🚗'},
+  {id:'p6',title:'Air Intake System',brand:'Blitz SUS Power',price:179,original_price:null,compatibility:'Nissan Skyline R32/R33/R34',category:'exhaust',make:'nissan',models:['R32','R33','R34'],years:[1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002],stock:'uk',badge:null,emoji:'💨'},
+  {id:'p7',title:'LSD Helical Diff',brand:'Cusco Type RS',price:569,original_price:null,compatibility:'Toyota AE86 / Corolla',category:'engine',make:'toyota',models:['AE86'],years:[1983,1984,1985,1986,1987],stock:'jp',badge:'JDM',emoji:'⚙️'},
+  {id:'p8',title:'Adjustable Rear Camber Arms',brand:'Whiteline',price:129,original_price:159,compatibility:'Honda Integra DC2/DC5',category:'suspension',make:'honda',models:['Integra'],years:[1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006],stock:'uk',badge:'SALE',emoji:'🔩'},
+  {id:'p9',title:'Carbon Rear Wing GT',brand:'Voltex',price:799,original_price:null,compatibility:'Subaru Impreza STI GD',category:'body',make:'subaru',models:['Impreza'],years:[2000,2001,2002,2003,2004,2005,2006,2007],stock:'jp',badge:null,emoji:'🚗'},
+  {id:'p10',title:'Brake Pad Set — Front',brand:'Dixcel ES',price:89,original_price:99,compatibility:'Honda Civic FK8 / FL5',category:'brakes',make:'honda',models:['Civic'],years:[2017,2018,2019,2020,2021,2022,2023],stock:'uk',badge:'SALE',emoji:'🛑'},
+  {id:'p11',title:'Oil Filter — High Performance',brand:'HKS',price:28,original_price:null,compatibility:'Nissan SR20 / RB Series',category:'servicing',make:'nissan',models:['S13','S14','S15','R32','R33','R34'],years:[1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002],stock:'uk',badge:null,emoji:'🛢️'},
+  {id:'p12',title:'Radiator Aluminium 3-Core',brand:'Koyorad',price:349,original_price:null,compatibility:'Toyota Supra JZA80',category:'cooling',make:'toyota',models:['Supra'],years:[1993,1994,1995,1996,1997,1998,1999,2000,2001,2002],stock:'jp',badge:'JDM',emoji:'🌡️'},
+  {id:'p13',title:'Short Shift Kit',brand:'Cusco',price:199,original_price:240,compatibility:'Subaru Impreza / WRX',category:'interior',make:'subaru',models:['Impreza'],years:[1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007],stock:'uk',badge:'SALE',emoji:'🪑'},
+  {id:'p14',title:'Lowering Springs',brand:'Eibach',price:249,original_price:null,compatibility:'Honda Civic FK8',category:'suspension',make:'honda',models:['Civic'],years:[2017,2018,2019,2020,2021],stock:'uk',badge:null,emoji:'🔩'},
+  {id:'p15',title:'Spark Plugs Iridium (x4)',brand:'NGK',price:64,original_price:null,compatibility:'Honda B/K/F Series',category:'servicing',make:'honda',models:['Civic','Integra','S2000'],years:[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010],stock:'uk',badge:null,emoji:'🛢️'},
 ];
 
 // ── Load products ─────────────────────────────────────────────
@@ -902,7 +941,210 @@ if(window.netlifyIdentity){
     if(!user){window.netlifyIdentity.on('login',()=>{document.location.href='/admin/'});}
   });
 }
+// ── Vehicle data ──────────────────────────────────────────────
+const VEHICLE_DATA = {
+  nissan: {
+    label: 'Nissan',
+    models: ['180SX','200SX','240SX','300ZX','350Z','370Z','GTR','R32','R33','R34','S13','S14','S15','Silvia','Skyline']
+  },
+  toyota: {
+    label: 'Toyota',
+    models: ['AE86','Aristo','Celica','Chaser','Corolla','Crown','GR86','JZX100','MR2','Soarer','Supra','Verossa']
+  },
+  honda: {
+    label: 'Honda',
+    models: ['Accord','Beat','Civic','CR-X','DC2 Integra','DC5 Integra','EK9','EP3','FK2','FK8','FL5','NSX','Prelude','S2000']
+  },
+  subaru: {
+    label: 'Subaru',
+    models: ['BRZ','Forester','Impreza','Legacy','Outback','WRX STI']
+  },
+  mitsubishi: {
+    label: 'Mitsubishi',
+    models: ['3000GT','Eclipse','Evo I','Evo II','Evo III','Evo IV','Evo V','Evo VI','Evo VII','Evo VIII','Evo IX','Evo X','FTO','GTO','Lancer Evo']
+  },
+  mazda: {
+    label: 'Mazda',
+    models: ['Cosmo','MX-5','RX-7','RX-8']
+  }
+};
 
+const YEAR_MIN = 1980;
+const YEAR_MAX = 2024;
+
+let activeVehicle = { year: null, make: null, model: null };
+
+// ── Populate year dropdown ────────────────────────────────────
+function initYearDropdown(){
+  const sel = document.getElementById('vYear');
+  for(let y = YEAR_MAX; y >= YEAR_MIN; y--){
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    sel.appendChild(opt);
+  }
+}
+
+// ── Year selected → populate makes ───────────────────────────
+function onYearChange(){
+  const year = parseInt(document.getElementById('vYear').value);
+  const makeSel = document.getElementById('vMake');
+  const modelSel = document.getElementById('vModel');
+
+  // Reset downstream
+  makeSel.innerHTML = '<option value="">Make</option>';
+  modelSel.innerHTML = '<option value="">Model</option>';
+  modelSel.disabled = true;
+  activeVehicle = { year: null, make: null, model: null };
+
+  if(!year){ makeSel.disabled = true; return; }
+
+  // Find which makes have parts for this year
+  const availableMakes = Object.entries(VEHICLE_DATA).filter(([makeKey]) => {
+    return allProducts.some(p =>
+      p.make === makeKey &&
+      Array.isArray(p.years) &&
+      p.years.includes(year)
+    );
+  });
+
+  if(!availableMakes.length){
+    // Show all makes if no products yet (placeholder mode)
+    Object.entries(VEHICLE_DATA).forEach(([key, val]) => {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = val.label;
+      makeSel.appendChild(opt);
+    });
+  } else {
+    availableMakes.forEach(([key, val]) => {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = val.label;
+      makeSel.appendChild(opt);
+    });
+  }
+
+  makeSel.disabled = false;
+}
+
+// ── Make selected → populate models ──────────────────────────
+function onMakeChange(){
+  const year  = parseInt(document.getElementById('vYear').value);
+  const make  = document.getElementById('vMake').value;
+  const modelSel = document.getElementById('vModel');
+
+  modelSel.innerHTML = '<option value="">Model</option>';
+  activeVehicle.model = null;
+
+  if(!make){ modelSel.disabled = true; return; }
+
+  const makeData = VEHICLE_DATA[make];
+  if(!makeData){ modelSel.disabled = true; return; }
+
+  // Filter models that have matching products for the year+make combo
+  const availableModels = makeData.models.filter(model => {
+    return allProducts.some(p =>
+      p.make === make &&
+      Array.isArray(p.models) &&
+      p.models.some(m => m.toLowerCase() === model.toLowerCase()) &&
+      Array.isArray(p.years) &&
+      p.years.includes(year)
+    );
+  });
+
+  // If no exact match (placeholder mode), show all models for that make
+  const modelsToShow = availableModels.length ? availableModels : makeData.models;
+
+  modelsToShow.forEach(model => {
+    const opt = document.createElement('option');
+    opt.value = model;
+    opt.textContent = model;
+    modelSel.appendChild(opt);
+  });
+
+  modelSel.disabled = false;
+}
+
+// ── Model selected ────────────────────────────────────────────
+function onModelChange(){
+  // Just store — actual search happens on button click
+  activeVehicle.model = document.getElementById('vModel').value || null;
+}
+
+// ── Find Parts button ─────────────────────────────────────────
+function findPartsByVehicle(){
+  const year  = parseInt(document.getElementById('vYear').value);
+  const make  = document.getElementById('vMake').value;
+  const model = document.getElementById('vModel').value;
+
+  if(!year && !make && !model){
+    showToast('Please select at least a year or make');
+    return;
+  }
+
+  activeVehicle = { year: year || null, make: make || null, model: model || null };
+  activeCategory = '';
+
+  // Clear other filters
+  document.getElementById('makeFilter').value = '';
+  document.getElementById('stockFilter').value = '';
+  document.getElementById('shopSearch').value = '';
+
+  // Filter products
+  const results = allProducts.filter(p => {
+    const matchMake  = make  ? p.make === make : true;
+    const matchYear  = year  ? (Array.isArray(p.years) && p.years.includes(year)) : true;
+    const matchModel = model ? (Array.isArray(p.models) && p.models.some(m => m.toLowerCase() === model.toLowerCase())) : true;
+    return matchMake && matchYear && matchModel;
+  });
+
+  renderGrid(results);
+
+  // Show active vehicle banner
+  const parts = [year, make ? VEHICLE_DATA[make]?.label : null, model].filter(Boolean);
+  const label = parts.join(' · ');
+  showVehicleBanner(label, results.length);
+
+  // Show clear button
+  document.getElementById('vClearBtn').style.display = 'block';
+
+  document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+}
+
+// ── Active vehicle banner ─────────────────────────────────────
+function showVehicleBanner(label, count){
+  let banner = document.getElementById('vehicleBanner');
+  if(!banner){
+    banner = document.createElement('div');
+    banner.id = 'vehicleBanner';
+    banner.className = 'vehicle-active-banner';
+    const shopSection = document.querySelector('#shop .section-hd');
+    if(shopSection) shopSection.after(banner);
+  }
+  banner.textContent = `Showing ${count} part${count!==1?'s':''} for: ${label}`;
+  banner.style.display = 'block';
+}
+
+// ── Clear vehicle selection ───────────────────────────────────
+function clearVehicle(){
+  document.getElementById('vYear').value = '';
+  document.getElementById('vMake').innerHTML = '<option value="">Make</option>';
+  document.getElementById('vMake').disabled = true;
+  document.getElementById('vModel').innerHTML = '<option value="">Model</option>';
+  document.getElementById('vModel').disabled = true;
+  document.getElementById('vClearBtn').style.display = 'none';
+
+  activeVehicle = { year: null, make: null, model: null };
+
+  const banner = document.getElementById('vehicleBanner');
+  if(banner) banner.style.display = 'none';
+
+  renderGrid(allProducts);
+}
+
+// ── Init year dropdown on load ────────────────────────────────
+initYearDropdown();
 loadProducts();
 </script>
 </body>
