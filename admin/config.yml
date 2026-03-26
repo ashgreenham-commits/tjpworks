@@ -17,6 +17,8 @@ collections:
       - { label: "Price (£)", name: "price", widget: "number" }
       - { label: "Original Price (£) - optional", name: "original_price", widget: "number", required: false }
       - { label: "Fits (compatibility)", name: "compatibility", widget: "string" }
+      - { label: "Compatible Years (e.g. 1993,1994,1995)", name: "years", widget: "string", required: false }
+      - { label: "Compatible Models", name: "models", widget: "string", hint: "e.g. S13,S14,R32,R33", required: false }
       - { label: "Category", name: "category", widget: "select", options: ["engine", "suspension", "exhaust", "body"] }
       - { label: "Make", name: "make", widget: "select", options: ["nissan", "toyota", "honda", "subaru", "mitsubishi"] }
       - { label: "Stock Location", name: "stock", widget: "select", options: [{ label: "In Stock UK", value: "uk" }, { label: "Sourced from Japan", value: "jp" }] }
