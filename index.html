@@ -249,6 +249,15 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem
 .mobile-nav-links{list-style:none;display:flex;flex-direction:column;gap:0;clear:both}
 .mobile-nav-links a{display:block;padding:.85rem 0;font-size:.9rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--border);transition:color .2s}
 .mobile-nav-links a:hover{color:var(--gold)}
+  /* ── HERO LOGO ── */
+.hero{position:relative;min-height:600px;display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden;background:#050505}
+.hero-logo-float{display:flex;align-items:center;justify-content:center;position:relative;z-index:2;padding:2rem}
+.hero-logo-float img{width:85%;max-width:400px;filter:drop-shadow(0 0 50px rgba(201,162,39,.45)) drop-shadow(0 0 20px rgba(201,162,39,.2));animation:float 5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-logo-float{display:none}
+}
 /* ── VEHICLE SELECTOR ── */
 .vehicle-bar{background:var(--card);border-bottom:2px solid var(--gold);position:sticky;top:var(--nav-h);z-index:190}
 .vehicle-bar-inner{max-width:1400px;margin:0 auto;padding:.85rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -372,10 +381,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem
     <p class="hero-eyebrow">JDM Parts Specialists · Established in the UK</p>
     <h1>Built for<br><em>Japanese</em><br>machines.</h1>
     <p class="hero-sub">Genuine and aftermarket parts for JDM vehicles imported from Japan. Sourced direct from Tokyo, Osaka & Nagoya — delivered to your door.</p>
-    <div class="hero-ctas">
+   <div class="hero-ctas">
       <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop All Parts</button>
       <button class="btn-ghost" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Browse Categories</button>
     </div>
+  </div>
+  <div class="hero-logo-float">
+    <img src="/TJPWORKSLOGO.jpg" alt="TJP Works"
+         onerror="this.parentElement.style.display='none'"/>
   </div>
 </div>
 
