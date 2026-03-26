@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TJP Works — JDM Parts Specialists</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--surface:#111;--card:#161616;--border:#222;
+  --gold:#C9A227;--gold-light:#E8C558;--silver:#B8BCC8;
+  --white:#F5F5F5;--mid:#666;
+  --font-head:'Rajdhani',sans-serif;--font-body:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:.05em}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;color:var(--mid);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.cart-btn{background:var(--gold);color:#000;border:none;font-family:var(--font-body);font-size:.82rem;font-weight:600;padding:.55rem 1.25rem;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .2s}
+.cart-btn:hover{background:var(--gold-light)}
+.cart-count{background:#000;color:var(--gold);border-radius:50%;width:18px;height:18px;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+.hero{position:relative;overflow:hidden;padding:90px 5vw 80px;min-height:500px;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 60% 50%,rgba(201,162,39,.07) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,162,39,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,162,39,.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-inner{position:relative;max-width:1300px;margin:0 auto;width:100%}
+.hero-tag{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.hero h1{font-family:var(--font-head);font-size:clamp(2.8rem,5vw,4.5rem);font-weight:700;line-height:1.05;margin-bottom:1.25rem}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:.95rem;color:#888;max-width:480px;margin-bottom:2rem;line-height:1.75}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:#000;border:none;padding:.85rem 2rem;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);border:1px solid #333;padding:.85rem 2rem;font-family:var(--font-body);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.ticker-wrap{overflow:hidden;background:var(--gold);padding:.55rem 0}
+.ticker{display:flex;white-space:nowrap;animation:ticker 32s linear infinite;gap:2rem}
+.ticker span{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#000;flex-shrink:0}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{max-width:1300px;margin:0 auto;padding:80px 5vw}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:.75rem}
+.section-header h2{font-family:var(--font-head);font-size:1.75rem;font-weight:700;letter-spacing:.02em}
+.section-header h2 span{color:var(--gold)}
+.section-header a{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s}
+.section-header a:hover{color:var(--gold)}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.cat-item{background:var(--card);padding:2rem 1.5rem;cursor:pointer;transition:background .2s;display:flex;flex-direction:column;gap:.75rem}
+.cat-item:hover{background:#1c1c1c}
+.cat-item:hover .cat-name{color:var(--gold)}
+.cat-icon{font-size:1.6rem}
+.cat-name{font-family:var(--font-head);font-size:1rem;font-weight:600;letter-spacing:.03em;transition:color .2s}
+.cat-count{font-size:.75rem;color:var(--mid)}
+.search-wrap{max-width:1300px;margin:0 auto;padding:0 5vw 48px;display:flex;gap:1rem}
+.search-input{flex:1;border:1px solid var(--border);background:var(--card);padding:.8rem 1.25rem;font-family:var(--font-body);font-size:.88rem;color:var(--white);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--gold)}
+.search-input::placeholder{color:var(--mid)}
+.search-select{border:1px solid var(--border);background:var(--card);padding:.8rem 1rem;font-family:var(--font-body);font-size:.82rem;color:var(--white);outline:none;cursor:pointer;min-width:140px}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.product-card{background:var(--card);border:1px solid var(--border);transition:transform .2s,border-color .2s;position:relative;overflow:hidden}
+.product-card:hover{transform:translateY(-3px);border-color:#333}
+.product-img{aspect-ratio:4/3;background:#0e0e0e;display:flex;align-items:center;justify-content:center;font-size:3.5rem;border-bottom:1px solid var(--border);position:relative}
+.product-badge{position:absolute;top:.75rem;left:.75rem;background:var(--gold);color:#000;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem}
+.product-info{padding:1.25rem}
+.product-brand{font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.3rem}
+.product-name{font-family:var(--font-head);font-size:1rem;font-weight:600;line-height:1.3;margin-bottom:.35rem;letter-spacing:.02em}
+.product-compat{font-size:.75rem;color:var(--mid);margin-bottom:.75rem}
+.product-stock{margin-bottom:1rem}
+.stock-uk{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;display:inline-flex;align-items:center;gap:.3rem}
+.stock-uk::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block}
+.stock-jp{background:rgba(201,162,39,.12);color:var(--gold);border:1px solid rgba(201,162,39,.25);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:var(--font-head);font-size:1.15rem;font-weight:700;color:var(--gold)}
+.product-price .original{font-size:.8rem;font-weight:400;color:var(--mid);text-decoration:line-through;margin-left:.4rem;font-family:var(--font-body)}
+.add-btn{background:var(--gold);color:#000;border:none;padding:.5rem 1rem;font-family:var(--font-body);font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s}
+.add-btn:hover{background:var(--gold-light)}
+.add-btn.added{background:#22c55e;color:#fff}
+.banner-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 5vw}
+.banner-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+.banner-inner h2{font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;line-height:1.2;letter-spacing:.02em}
+.banner-inner h2 em{font-style:normal;color:var(--gold)}
+.banner-inner p{color:#666;font-size:.88rem;margin-top:.5rem}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.trust-item{background:var(--card);padding:1.75rem 1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.trust-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+.trust-title{font-family:var(--font-head);font-size:.95rem;font-weight:600;margin-bottom:.2rem;letter-spacing:.03em}
+.trust-desc{font-size:.8rem;color:var(--mid);line-height:1.55}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3.5rem 5vw 2rem}
+.footer-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+.footer-brand{font-family:var(--font-head);font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
+.footer-brand span{color:var(--gold)}
+.footer-desc{font-size:.82rem;color:#555;line-height:1.7}
+.footer-col h4{font-family:var(--font-head);font-size:.78rem;font-weight:700;color:var(--mid);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col a{font-size:.82rem;color:#444;text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:1300px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:.75rem;color:#444}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:380px;background:var(--surface);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.cart-panel.open{transform:translateX(0)}
+.cart-panel-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-panel-head h3{font-family:var(--font-head);font-weight:700;font-size:1.1rem;letter-spacing:.03em}
+.close-cart{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--mid)}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+.cart-item{display:flex;gap:1rem;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.cart-item-img{width:60px;height:60px;background:#0e0e0e;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;border:1px solid var(--border)}
+.cart-item-name{font-family:var(--font-head);font-size:.9rem;font-weight:600}
+.cart-item-price{font-size:.85rem;color:var(--gold);font-weight:600;margin-top:.25rem}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:var(--mid);font-size:.78rem;margin-top:.4rem}
+.cart-panel-foot{padding:1.5rem;border-top:1px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;font-family:var(--font-head);font-weight:700;font-size:1rem;margin-bottom:1rem}
+.cart-total span:last-child{color:var(--gold)}
+.checkout-btn{width:100%;background:var(--gold);color:#000;border:none;padding:1rem;font-family:var(--font-body);font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}
+.checkout-btn:hover{background:var(--gold-light)}
+.empty-cart{text-align:center;color:var(--mid);font-size:.9rem;padding:2rem 0}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold);color:#000;padding:.75rem 1.5rem;font-size:.82rem;font-weight:600;z-index:300;transition:transform .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.loading{text-align:center;color:var(--mid);padding:3rem;grid-column:1/-1;font-size:.9rem}
+@media(max-width:900px){
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .cart-panel{width:100%}
+  .banner-inner{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .products-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">TJP <span>Works</span></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
+  </ul>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Cart <span class="cart-count" id="cartCount">0</span>
+  </button>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <p class="hero-tag">Authentic JDM Parts · UK Specialists</p>
+    <h1>Built for<br><em>Japanese</em> machines.</h1>
+    <p>Genuine and aftermarket parts for JDM vehicles imported from Japan. Sourced direct, shipped fast — engineered for UK roads.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Parts</button>
+      <button class="btn-outline" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Browse Categories</button>
+    </div>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerInner">
+    <span>Free UK Shipping over £150 ✦ Genuine JDM Parts ✦ Next Day UK Stock Dispatch ✦ Nissan · Toyota · Honda · Subaru · Mitsubishi ✦ Import Specialists ✦ UK VAT Included ✦ Free UK Shipping over £150 ✦ Genuine JDM Parts ✦ Next Day UK Stock Dispatch ✦ Nissan · Toyota · Honda · Subaru · Mitsubishi ✦ Import Specialists ✦ UK VAT Included</span>
+  </div>
+</div>
+
+<section id="categories">
+  <div class="section-header">
+    <h2>Shop by <span>Category</span></h2>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-item" onclick="filterByCategory('engine')">
+      <div class="cat-icon">⚙️</div>
+      <div class="cat-name">Engine & Internals</div>
+      <div class="cat-count" id="count-engine">0 parts</div>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('suspension')">
+      <div class="cat-icon">🔩</div>
+      <div class="cat-name">Suspension & Handling</div>
+      <div class="cat-count" id="count-suspension">0 parts</div>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('exhaust')">
+      <div class="cat-icon">💨</div>
+      <div class="cat-name">Exhaust & Intake</div>
+      <div class="cat-count" id="count-exhaust">0 parts</div>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('body')">
+      <div class="cat-icon">🚗</div>
+      <div class="cat-name">Body & Exterior</div>
+      <div class="cat-count" id="count-body">0 parts</div>
+    </div>
+  </div>
+</section>
+
+<div class="search-wrap">
+  <input class="search-input" type="text" placeholder="Search by part name, brand or vehicle model..." id="searchInput" oninput="applyFilters()"/>
+  <select class="search-select" id="makeFilter" onchange="applyFilters()">
+    <option value="">All Makes</option>
+    <option value="nissan">Nissan</option>
+    <option value="toyota">Toyota</option>
+    <option value="honda">Honda</option>
+    <option value="subaru">Subaru</option>
+    <option value="mitsubishi">Mitsubishi</option>
+  </select>
+</div>
+
+<section id="shop">
+  <div class="section-header">
+    <h2>Featured <span>Parts</span></h2>
+    <a href="#" onclick="clearFilters(); return false;">View all</a>
+  </div>
+  <div class="products-grid" id="productsGrid">
+    <p class="loading">Loading parts...</p>
+  </div>
+</section>
+
+<div class="banner-section">
+  <div class="banner-inner">
+    <div>
+      <h2>Can't find the part you need?<br><em>We'll source it from Japan.</em></h2>
+      <p>Direct sourcing relationships in Tokyo, Osaka & Nagoya. Lead time 7–14 days.</p>
+    </div>
+    <button class="btn-gold" onclick="window.location.href='mailto:parts@tjpworks.co.uk'">Request a Part</button>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-header">
+    <h2>Why <span>TJP Works</span></h2>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">✈️</div>
+      <div>
+        <div class="trust-title">Direct from Japan</div>
+        <div class="trust-desc">Sourced from Japanese dismantlers, manufacturers and dealers. Every part verified before shipping.</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🇬🇧</div>
+      <div>
+        <div class="trust-title">UK Import Spec</div>
+        <div class="trust-desc">Parts checked for UK road compliance. VAT included in all prices. No hidden import fees.</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📦</div>
+      <div>
+        <div class="trust-title">UK Stock Available</div>
+        <div class="trust-desc">High-demand parts held in the UK for next-day dispatch. Japan-sourced items arrive in 7–14 days.</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔧</div>
+      <div>
+        <div class="trust-title">Expert Support</div>
+        <div class="trust-desc">JDM enthusiasts on hand to verify fitment before you buy. Real advice, not guesswork.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">TJP <span>Works</span> UK</div>
+      <p class="footer-desc">JDM parts specialists for imported Japanese vehicles in the UK. Genuine, quality-checked, UK-ready.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#" onclick="filterByCategory('engine');return false">Engine Parts</a></li>
+        <li><a href="#" onclick="filterByCategory('suspension');return false">Suspension</a></li>
+        <li><a href="#" onclick="filterByCategory('exhaust');return false">Exhaust</a></li>
+        <li><a href="#" onclick="filterByCategory('body');return false">Body Parts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Makes</h4>
+      <ul>
+        <li><a href="#">Nissan</a></li>
+        <li><a href="#">Toyota</a></li>
+        <li><a href="#">Honda</a></li>
+        <li><a href="#">Subaru</a></li>
+        <li><a href="#">Mitsubishi</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 TJP Works UK. All rights reserved.</span>
+    <span>Registered in England & Wales</span>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-panel-head">
+    <h3>Your Cart</h3>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Your cart is empty.</p>
+  </div>
+  <div class="cart-panel-foot">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">£0.00</span></div>
+    <button class="checkout-btn" onclick="alert('Checkout coming soon! Email parts@tjpworks.co.uk to order.')">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Product data (loaded from your _products folder via fetch) ──
+let allProducts = [];
+let cart = [];
+let activeCategory = '';
+
+// ── Load products from JSON (generated from your markdown files) ─
+async function loadProducts() {
+  try {
+    const res = await fetch('/products.json');
+    if (!res.ok) throw new Error('No products.json yet');
+    allProducts = await res.json();
+  } catch {
+    // Fallback placeholder products while you set up CMS
+    allProducts = [
+      {id:'p1',title:'Turbine Housing SR20DET',brand:'OEM Nissan',price:189,original_price:240,compatibility:'Nissan S13 / S14 SR20DET',category:'engine',make:'nissan',stock:'uk',badge:'JDM',emoji:'⚙️'},
+      {id:'p2',title:'Coilover Kit GR-S',brand:'Tein',price:699,original_price:null,compatibility:'Toyota Supra A80 / MK4',category:'suspension',make:'toyota',stock:'jp',badge:null,emoji:'🔩'},
+      {id:'p3',title:'Cat-Back Exhaust System',brand:'HKS Hi-Power',price:449,original_price:520,compatibility:'Honda Civic Type R EK9',category:'exhaust',make:'honda',stock:'uk',badge:'SALE',emoji:'💨'},
+      {id:'p4',title:'EJ20 Short Block Assembly',brand:'OEM Subaru',price:1250,original_price:null,compatibility:'Subaru Impreza WRX GC8',category:'engine',make:'subaru',stock:'jp',badge:'JDM',emoji:'⚙️'},
+      {id:'p5',title:'Front Lip Splitter FRP',brand:'Varis',price:299,original_price:380,compatibility:'Mitsubishi Lancer Evo IX',category:'body',make:'mitsubishi',stock:'uk',badge:'SALE',emoji:'🚗'},
+      {id:'p6',title:'Air Intake System',brand:'Blitz SUS Power',price:179,original_price:null,compatibility:'Nissan Skyline R32/R33/R34',category:'exhaust',make:'nissan',stock:'uk',badge:null,emoji:'💨'},
+      {id:'p7',title:'LSD Helical Diff',brand:'Cusco Type RS',price:569,original_price:null,compatibility:'Toyota AE86 / Corolla',category:'engine',make:'toyota',stock:'jp',badge:'JDM',emoji:'⚙️'},
+      {id:'p8',title:'Adjustable Rear Camber Arms',brand:'Whiteline',price:129,original_price:159,compatibility:'Honda Integra DC2/DC5',category:'suspension',make:'honda',stock:'uk',badge:'SALE',emoji:'🔩'},
+      {id:'p9',title:'Carbon Rear Spoiler GT',brand:'Voltex',price:799,original_price:null,compatibility:'Subaru Impreza STI GD',category:'body',make:'subaru',stock:'jp',badge:null,emoji:'🚗'},
+    ];
+  }
+  updateCategoryCounts();
+  renderProducts(allProducts);
+}
+
+function updateCategoryCounts() {
+  ['engine','suspension','exhaust','body'].forEach(cat => {
+    const count = allProducts.filter(p => p.category === cat).length;
+    const el = document.getElementById('count-' + cat);
+    if (el) el.textContent = count + ' part' + (count !== 1 ? 's' : '');
+  });
+}
+
+function stockBadge(s) {
+  if (s === 'uk') return '<span class="stock-uk">In Stock UK</span>';
+  return '<span class="stock-jp">Sourced from Japan</span>';
+}
+
+function renderProducts(list) {
+  const grid = document.getElementById('productsGrid');
+  if (!list.length) {
+    grid.innerHTML = '<p class="loading">No parts found — try clearing your search.</p>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        ${p.emoji}
+      </div>
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.title}</div>
+        <div class="product-compat">Fits: ${p.compatibility}</div>
+        <div class="product-stock">${stockBadge(p.stock)}</div>
+        <div class="product-footer">
+          <div class="product-price">
+            £${Number(p.price).toLocaleString()}
+            ${p.original_price ? `<span class="original">£${Number(p.original_price).toLocaleString()}</span>` : ''}
+          </div>
+          <button class="add-btn" id="btn-${p.id}" onclick="addToCart('${p.id}')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const make   = document.getElementById('makeFilter').value;
+  const list = allProducts.filter(p => {
+    const matchCat  = activeCategory ? p.category === activeCategory : true;
+    const matchMake = make ? p.make === make : true;
+    const matchSearch = search
+      ? [p.title, p.brand, p.compatibility].some(s => s.toLowerCase().includes(search))
+      : true;
+    return matchCat && matchMake && matchSearch;
+  });
+  renderProducts(list);
+}
+
+function filterByCategory(cat) {
+  activeCategory = cat;
+  applyFilters();
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+}
+
+function clearFilters() {
+  activeCategory = '';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('makeFilter').value = '';
+  renderProducts(allProducts);
+}
+
+// ── Cart ────────────────────────────────────────────────────────
+function addToCart(id) {
+  const p = allProducts.find(p => p.id === id);
+  if (!p) return;
+  const existing = cart.find(c => c.id === id);
+  if (existing) { existing.qty++; } else { cart.push({ ...p, qty: 1 }); }
+  updateCartUI();
+  showToast(`${p.title} added to cart`);
+  const btn = document.getElementById('btn-' + id);
+  if (btn) {
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = 'Add to Cart'; btn.classList.remove('added'); }, 1500);
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  document.getElementById('cartCount').textContent = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cartTotal').textContent = '£' + total.toLocaleString();
+  const el = document.getElementById('cartItems');
+  if (!cart.length) { el.innerHTML = '<p class="empty-cart">Your cart is empty.</p>'; return; }
+  el.innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <div class="cart-item-img">${c.emoji}</div>
+      <div style="flex:1">
+        <div class="cart-item-name">${c.title}</div>
+        <div style="font-size:.72rem;color:var(--mid);margin-top:2px">${c.compatibility}</div>
+        <div class="cart-item-price">£${c.price} × ${c.qty}</div>
+        <button class="cart-item-remove" onclick="removeFromCart('${c.id}')">Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  document.getElementById('cartPanel').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Netlify Identity (for CMS login) ────────────────────────────
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', user => {
+    if (!user) {
+      window.netlifyIdentity.on('login', () => {
+        document.location.href = '/admin/';
+      });
+    }
+  });
+}
+
+loadProducts();
+</script>
+</body>
+</html>
+```
+
+---
+
+## PHASE 2 — Connect to Netlify
+
+1. Go to **netlify.com** → **Add new site → Import from GitHub**
+2. Select your `tjpworks` repo
+3. Leave build settings blank — click **Deploy**
+4. Once live, go to **Site settings → Identity → Enable Identity**
+5. Scroll down to **Git Gateway → Enable Git Gateway**
+6. Go to **Identity → Registration** → set to **Invite only** (so only you can log in)
+7. Click **Invite users** and invite your own email
+
+---
+
+## PHASE 3 — Log Into Your CMS
+
+1. Go to `your-site-url.netlify.app/admin`
+2. Accept the email invite and set a password
+3. You'll see a clean dashboard — click **Products → New Product** to add parts
+
+From here your editing workflow is simply:
+```
+Go to yoursite.netlify.app/admin
+→ Click Products → New Product
+→ Fill in the form fields
+→ Click Publish
+→ Site rebuilds automatically in ~30 seconds ✓
