@@ -1,43 +1,10 @@
 backend:
-  name: github
-  repo: ashgreenham-commits/tjpworks
+  name: git-gateway
   branch: main
-  base_url: https://tjpworks-oauth.ashgreenham.workers.dev/
-  auth_endpoint: /auth
+```
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
-
-collections:
-  - name: "products"
-    label: "Products"
-    folder: "_products"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Part Name", name: "title", widget: "string" }
-      - { label: "Brand", name: "brand", widget: "string" }
-      - { label: "Price (£)", name: "price", widget: "number" }
-      - { label: "Original Price (£) - optional", name: "original_price", widget: "number", required: false }
-      - { label: "Fits (compatibility)", name: "compatibility", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["engine", "suspension", "exhaust", "body", "brakes", "servicing", "cooling", "interior"] }
-      - { label: "Make", name: "make", widget: "select", options: ["nissan", "toyota", "honda", "subaru", "mitsubishi", "mazda"] }
-      - { label: "Compatible Years (e.g. 1993,1994,1995)", name: "years", widget: "string", required: false }
-      - { label: "Compatible Models (e.g. S13,S14,R32)", name: "models", widget: "string", required: false }
-      - { label: "Stock Location", name: "stock", widget: "select", options: [{ label: "In Stock UK", value: "uk" }, { label: "Sourced from Japan", value: "jp" }] }
-      - { label: "Badge (optional, e.g. SALE or JDM)", name: "badge", widget: "string", required: false }
-      - { label: "Product Image", name: "image", widget: "image", required: false, hint: "Upload a photo of the part" }
-      - { label: "Emoji Icon (used if no image)", name: "emoji", widget: "select", options: ["⚙️", "🔩", "💨", "🚗", "🛑", "🛢️", "🌡️", "🪑"] }
-      - { label: "Description", name: "description", widget: "text", required: false }
-
-  - name: "settings"
-    label: "Site Settings"
-    files:
-      - label: "General"
-        name: "general"
-        file: "_data/settings.yml"
-        fields:
-          - { label: "Site Tagline", name: "tagline", widget: "string" }
-          - { label: "Email Address", name: "email", widget: "string" }
-          - { label: "Phone Number", name: "phone", widget: "string", required: false }
-          - { label: "Ticker Bar Text", name: "ticker", widget: "string" }
+And replace your `_headers` file with this:
+```
+/admin/*
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:
+  X-Frame-Options: SAMEORIGIN
