@@ -20,15 +20,22 @@ collections:
       - { label: "Price (£)", name: "price", widget: "number" }
       - { label: "Original Price (£) - optional", name: "original_price", widget: "number", required: false }
       - { label: "Fits (compatibility)", name: "compatibility", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
       - { label: "Category", name: "category", widget: "select", options: ["engine", "suspension", "exhaust", "body", "brakes", "servicing", "cooling", "interior"] }
       - { label: "Make", name: "make", widget: "select", options: ["nissan", "toyota", "honda", "subaru", "mitsubishi", "mazda"] }
       - { label: "Compatible Years (e.g. 1993,1994,1995)", name: "years", widget: "string", required: false }
       - { label: "Compatible Models (e.g. S13,S14,R32)", name: "models", widget: "string", required: false }
       - { label: "Stock Location", name: "stock", widget: "select", options: [{ label: "In Stock UK", value: "uk" }, { label: "Sourced from Japan", value: "jp" }] }
       - { label: "Badge (optional, e.g. SALE or JDM)", name: "badge", widget: "string", required: false }
-      - { label: "Product Image", name: "image", widget: "image", required: false, hint: "Upload a photo of the part" }
+      - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false, hint: "Show this product in the featured section on the home page" }
+      - { label: "Main Product Image", name: "image", widget: "image", required: false, hint: "The primary product image shown in listings" }
+      - label: "Additional Images"
+        name: "images"
+        widget: "list"
+        required: false
+        hint: "Upload extra images — these appear in the image gallery on the product page"
+        field: { label: "Image", name: "image", widget: "image" }
       - { label: "Emoji Icon (used if no image)", name: "emoji", widget: "select", options: ["⚙️", "🔩", "💨", "🚗", "🛑", "🛢️", "🌡️", "🪑"] }
-      - { label: "Description", name: "description", widget: "text", required: false }
 
   - name: "settings"
     label: "Site Settings"
