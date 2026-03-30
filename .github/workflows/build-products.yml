@@ -27,20 +27,23 @@ jobs:
             if (!match) return;
 
             const front = match[1];
+
             const get = (key) => {
-  // Handle block scalar (|- or |)
-  const blockMatch = front.match(new RegExp('^' + key + ':\\s*\\|[-]?\\n((?:[ \\t]+.+\\n?)*)', 'm'));
-  if (blockMatch) return blockMatch[1].replace(/^[ \t]+/gm, '').trim();
-  // Handle plain single line
-  const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
-  return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
-};
+              // Handle block scalar (|- or |)
+              const blockMatch = front.match(new RegExp('^' + key + ':\\\\s*\\\\|[-]?\\\\n((?:[ \\\\t]+.+\\\\n?)*)', 'm'));
+              if (blockMatch) return blockMatch[1].replace(/^[ \\t]+/gm, '').trim();
+              // Handle plain single line
+              const m = front.match(new RegExp('^' + key + ':\\\\s*(.+)$', 'm'));
+              return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
+            };
+
             const getBool = (key) => {
-              const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
+              const m = front.match(new RegExp('^' + key + ':\\\\s*(.+)$', 'm'));
               return m ? m[1].trim() === 'true' : false;
             };
+
             const getList = (key) => {
-              const block = front.match(new RegExp(key + ':\\n((?:  - .+\\n?)+)'));
+              const block = front.match(new RegExp(key + ':\\\\n((?:  - .+\\\\n?)+)'));
               if (!block) return [];
               return block[1].match(/  - (.+)/g)?.map(l => l.replace('  - ', '').trim()) || [];
             };
@@ -49,6 +52,10 @@ jobs:
             const modelsRaw = get('models');
             const imagesList = getList('images');
 
+            // Clean description — strip YAML block indicators
+            let desc = get('description') || '';
+            if (desc === '|-' || desc === '|') desc = '';
+
             products.push({
               id: file.replace('.md', ''),
               title: get('title') || '',
@@ -56,7 +63,7 @@ jobs:
               price: parseFloat(get('price')) || 0,
               original_price: get('original_price') ? parseFloat(get('original_price')) : null,
               compatibility: get('compatibility') || '',
-              description: get('description') || '',
+              description: desc,
               category: get('category') || '',
               make: get('make') || '',
               years: yearsRaw ? yearsRaw.split(',').map(y => parseInt(y.trim())).filter(Boolean) : [],
