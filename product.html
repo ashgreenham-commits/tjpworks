@@ -287,7 +287,7 @@ function buildProductPage(p) {
           <div class="compat-label">Fitment</div>
           <div class="compat-value">${p.compatibility}</div>
         </div>
-        ${p.description && p.description !== '|-' && p.description.trim() ? `<p class="product-info-desc">${p.description}</p>` : ''}
+        ${p.description && p.description !== '|-' && p.description.trim() ? `<p class="product-info-desc">${p.description.replace(/\n/g, '<br/>')}</p>` : ''}
         <div class="add-to-cart-row">
           <div class="qty-selector">
             <button class="qty-btn" onclick="changeQty(-1)">−</button>
