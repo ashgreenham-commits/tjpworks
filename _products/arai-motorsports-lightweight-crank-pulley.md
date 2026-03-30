@@ -1,5 +1,5 @@
 ---
-title: Arai Motorsports   Lightweight Crank Pulley
+title: Arai Motorsports  Lightweight Crank Pulley
 brand: Arai Motorsports
 price: 140
 compatibility: Subari EJ
