@@ -2,7 +2,7 @@
 title: Liberal LED welcome light kit
 brand: Subaru
 price: 136
-compatibility: "Legacy(Liberty) BP BL 2006-2009 Impreza GR GV GH 2008-2014 Exiga "
+compatibility: "Legacy(Liberty) BP/BL 2006-2009 Impreza GR GV GH 2008-2014 Exiga "
 description: |
   Real carbon outside mirror cover
   Used item, has some scratches, please check the photos.
