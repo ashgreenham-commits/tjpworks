@@ -11,11 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install js-yaml
+        run: npm install js-yaml
+
       - name: Generate products.json
         run: |
           node -e "
           const fs = require('fs');
           const path = require('path');
+          const yaml = require('js-yaml');
 
           const dir = '_products';
           const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
@@ -23,62 +27,66 @@ jobs:
 
           files.forEach(file => {
             const content = fs.readFileSync(path.join(dir, file), 'utf8');
-            const match = content.match(/^---\n([\s\S]*?)\n---/);
-            if (!match) return;
 
-            const front = match[1];
+            const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+            if (!match) {
+              console.log('Skipping ' + file + ' - no frontmatter found');
+              return;
+            }
 
-            const get = (key) => {
-              // Handle block scalar (|- or |)
-              const blockMatch = front.match(new RegExp('^' + key + ':\\\\s*\\\\|[-]?\\\\n((?:[ \\\\t]+.+\\\\n?)*)', 'm'));
-              if (blockMatch) return blockMatch[1].replace(/^[ \\t]+/gm, '').trim();
-              // Handle plain single line
-              const m = front.match(new RegExp('^' + key + ':\\\\s*(.+)$', 'm'));
-              return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
-            };
+            let data;
+            try {
+              data = yaml.load(match[1]);
+            } catch(e) {
+              console.log('Skipping ' + file + ' - YAML parse error: ' + e.message);
+              return;
+            }
 
-            const getBool = (key) => {
-              const m = front.match(new RegExp('^' + key + ':\\\\s*(.+)$', 'm'));
-              return m ? m[1].trim() === 'true' : false;
-            };
+            const str = (val) => (val !== undefined && val !== null) ? String(val).trim() : '';
 
-            const getList = (key) => {
-              const block = front.match(new RegExp(key + ':\\\\n((?:  - .+\\\\n?)+)'));
-              if (!block) return [];
-              return block[1].match(/  - (.+)/g)?.map(l => l.replace('  - ', '').trim()) || [];
-            };
+            let years = [];
+            if (data.years) {
+              years = String(data.years).split(',').map(y => parseInt(y.trim())).filter(n => !isNaN(n));
+            }
 
-            const yearsRaw = get('years');
-            const modelsRaw = get('models');
-            const imagesList = getList('images');
+            let models = [];
+            if (data.models) {
+              models = String(data.models).split(',').map(m => m.trim()).filter(Boolean);
+            }
 
-            // Clean description — strip YAML block indicators
-            let desc = get('description') || '';
-            if (desc === '|-' || desc === '|') desc = '';
+            let images = [];
+            if (Array.isArray(data.images)) {
+              images = data.images.map(i => str(i)).filter(Boolean);
+            }
+
+            let description = str(data.description);
+            if (description === '|-' || description === '|') description = '';
 
             products.push({
               id: file.replace('.md', ''),
-              title: get('title') || '',
-              brand: get('brand') || '',
-              price: parseFloat(get('price')) || 0,
-              original_price: get('original_price') ? parseFloat(get('original_price')) : null,
-              compatibility: get('compatibility') || '',
-              description: desc,
-              category: get('category') || '',
-              make: get('make') || '',
-              years: yearsRaw ? yearsRaw.split(',').map(y => parseInt(y.trim())).filter(Boolean) : [],
-              models: modelsRaw ? modelsRaw.split(',').map(m => m.trim()).filter(Boolean) : [],
-              stock: get('stock') || 'uk',
-              badge: get('badge') || null,
-              featured: getBool('featured'),
-              image: get('image') || '',
-              images: imagesList,
-              emoji: get('emoji') || '⚙️',
+              title: str(data.title),
+              brand: str(data.brand),
+              price: parseFloat(data.price) || 0,
+              original_price: data.original_price ? parseFloat(data.original_price) : null,
+              compatibility: str(data.compatibility),
+              description: description,
+              category: str(data.category),
+              make: str(data.make),
+              years: years,
+              models: models,
+              stock: str(data.stock) || 'uk',
+              badge: data.badge ? str(data.badge) : null,
+              featured: data.featured === true || data.featured === 'true',
+              image: str(data.image),
+              images: images,
+              emoji: str(data.emoji) || '⚙️',
             });
+
+            console.log('Parsed: ' + file + ' | image: ' + str(data.image) + ' | extra images: ' + images.length);
           });
 
           fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
-          console.log('Built products.json with ' + products.length + ' products');
+          console.log('Done - built products.json with ' + products.length + ' products');
           "
 
       - name: Commit products.json
