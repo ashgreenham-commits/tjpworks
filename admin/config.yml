@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: ashgreenham-commits/tjpworks
   branch: main
+  base_url: https://tjpworks-oauth.ashgreenham.workers.dev/
+  auth_endpoint: /auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
