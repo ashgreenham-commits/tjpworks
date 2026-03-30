@@ -16,7 +16,7 @@ category: engine
 make: subaru
 stock: jp
 badge: JDM
-featured: false
+featured: true
 image: /images/uploads/658283638_17933564736206996_9098043188607399842_n.jpg
 images:
   - /images/uploads/657251996_17933564739206996_3986109974747347221_n.jpg
