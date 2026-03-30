@@ -363,8 +363,7 @@ function readURLParams(){
 }
 
 function productCardHTML(p){
-  const firstImg=p.images&&p.images.length?p.images[0]:null;
-  const imgHTML=firstImg?`<img src="${firstImg}" alt="${p.title}"/>`:`<span class="placeholder-emoji">${p.emoji}</span>`;
+  const imgHTML=p.image?`<img src="${p.image}" alt="${p.title}"/>`:`<span class="placeholder-emoji">${p.emoji}</span>`;
   const badgeHTML=p.badge?`<span class="product-badge badge-${p.badge.toLowerCase()==='sale'?'sale':p.badge.toLowerCase()==='jdm'?'jdm':'new'}">${p.badge}</span>`:'';
   const stockHTML=p.stock==='uk'?'<span class="stock-dot dot-uk">UK Stock</span>':'<span class="stock-dot dot-jp">Japan</span>';
   const wasHTML=p.original_price?`<span class="product-was">£${Number(p.original_price).toLocaleString()}</span>`:'';
@@ -523,7 +522,7 @@ function updateCartUI(){
   const body=document.getElementById('cartBody');
   if(!cart.length){body.innerHTML='<p class="cart-empty">Your cart is empty.</p>';return;}
   body.innerHTML=cart.map(c=>{
-    const img=c.images&&c.images.length?`<img src="${c.images[0]}" alt="${c.title}"/>`:`${c.emoji}`;
+const img=c.image?`<img src="${c.image}" alt="${c.title}"/>`:`${c.emoji}`;
     return `<div class="cart-line"><div class="cart-line-img">${img}</div><div class="cart-line-info"><div class="cart-line-name">${c.title}</div><div class="cart-line-compat">${c.compatibility}</div><div class="cart-line-price">£${c.price} × ${c.qty}</div><button class="cart-line-remove" onclick="removeFromCart('${c.id}')">Remove</button></div></div>`;
   }).join('');
 }
