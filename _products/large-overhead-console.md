@@ -18,5 +18,5 @@ stock: jp
 badge: JDM
 featured: true
 image: /images/uploads/658121137_17933562333206996_4737998185613409049_n.jpg
-emoji: 🔩
+emoji: 🪑
 ---
