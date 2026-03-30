@@ -1,0 +1,4 @@
+/admin/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.netlify.app https://*.netlify.com https://cdn.jsdelivr.net https://identity.netlify.com https://api.github.com https://*.githubusercontent.com data: blob:
