@@ -1,0 +1,79 @@
+name: Build products.json
+
+on:
+  push:
+    paths:
+      - '_products/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate products.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          const dir = '_products';
+          const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
+          const products = [];
+
+          files.forEach(file => {
+            const content = fs.readFileSync(path.join(dir, file), 'utf8');
+            const match = content.match(/^---\n([\s\S]*?)\n---/);
+            if (!match) return;
+
+            const front = match[1];
+            const get = (key) => {
+              const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
+              return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
+            };
+            const getBool = (key) => {
+              const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
+              return m ? m[1].trim() === 'true' : false;
+            };
+            const getList = (key) => {
+              const block = front.match(new RegExp(key + ':\\n((?:  - .+\\n?)+)'));
+              if (!block) return [];
+              return block[1].match(/  - (.+)/g)?.map(l => l.replace('  - ', '').trim()) || [];
+            };
+
+            const yearsRaw = get('years');
+            const modelsRaw = get('models');
+            const imagesList = getList('images');
+
+            products.push({
+              id: file.replace('.md', ''),
+              title: get('title') || '',
+              brand: get('brand') || '',
+              price: parseFloat(get('price')) || 0,
+              original_price: get('original_price') ? parseFloat(get('original_price')) : null,
+              compatibility: get('compatibility') || '',
+              description: get('description') || '',
+              category: get('category') || '',
+              make: get('make') || '',
+              years: yearsRaw ? yearsRaw.split(',').map(y => parseInt(y.trim())).filter(Boolean) : [],
+              models: modelsRaw ? modelsRaw.split(',').map(m => m.trim()).filter(Boolean) : [],
+              stock: get('stock') || 'uk',
+              badge: get('badge') || null,
+              featured: getBool('featured'),
+              image: get('image') || '',
+              images: imagesList,
+              emoji: get('emoji') || '⚙️',
+            });
+          });
+
+          fs.writeFileSync('products.json', JSON.stringify(products, null, 2));
+          console.log('Built products.json with ' + products.length + ' products');
+          "
+
+      - name: Commit products.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add products.json
+          git diff --staged --quiet || git commit -m "Auto: rebuild products.json"
+          git push
