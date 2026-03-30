@@ -1,4 +1,7 @@
 ```
+/products.json
+  Cache-Control: no-store
+
 /admin/*
   Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:
   X-Frame-Options: SAMEORIGIN
