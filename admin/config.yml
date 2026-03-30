@@ -23,7 +23,7 @@ collections:
       - { label: "Make", name: "make", widget: "select", options: ["nissan", "toyota", "honda", "subaru", "mitsubishi"] }
       - { label: "Stock Location", name: "stock", widget: "select", options: [{ label: "In Stock UK", value: "uk" }, { label: "Sourced from Japan", value: "jp" }] }
       - { label: "Badge (optional, e.g. SALE or JDM)", name: "badge", widget: "string", required: false }
-      - { label: "Emoji Icon", name: "emoji", widget: "select", options: ["⚙️", "🔩", "💨", "🚗"] }
+      - { label: "Product Image", name: "image", widget: "image", required: false, hint: "Upload a photo of the part" }       - { label: "Emoji Icon (used if no image)", name: "emoji", widget: "select", options: ["⚙️", "🔩", "💨", "🚗", "🛑", "🛢️", "🌡️", "🪑"] }
       - { label: "Description", name: "description", widget: "text", required: false }
 
   - name: "settings"
