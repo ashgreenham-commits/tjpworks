@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — TJP Works UK</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111;--card:#151515;--card2:#1a1a1a;
+  --border:#1e1e1e;--border2:#2a2a2a;
+  --gold:#C9A227;--gold-light:#E8C558;--gold-dim:rgba(201,162,39,.12);
+  --white:#F0F0F0;--mid:#666;--dim:#333;
+  --font-head:'Rajdhani',sans-serif;--font-body:'DM Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--font-body)}
+
+/* NAV */
+.announce{background:var(--gold);color:#000;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.45rem 1rem}
+.announce a{text-decoration:underline;color:#000}
+nav{position:sticky;top:0;z-index:200;background:rgba(10,10,10,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:var(--nav-h)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:100%;display:flex;align-items:center;gap:1.5rem}
+.nav-logo img{height:40px;width:auto}
+.nav-logo-text{font-family:var(--font-head);font-size:1.3rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.nav-logo-text span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;list-style:none;margin-left:1rem}
+.nav-links>li>a{display:flex;align-items:center;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding:0 1rem;height:var(--nav-h);transition:color .2s}
+.nav-links>li>a:hover,.nav-links>li>a.active{color:var(--white)}
+.nav-links>li>a.active{border-bottom:2px solid var(--gold)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:.75rem}
+.nav-icon-btn{background:none;border:none;color:var(--mid);font-size:1.1rem;padding:.4rem;transition:color .2s;position:relative}
+.nav-icon-btn:hover{color:var(--gold)}
+.cart-badge{position:absolute;top:0;right:0;background:var(--gold);color:#000;border-radius:50%;width:16px;height:16px;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--white);font-size:1.3rem;padding:.4rem}
+
+/* HERO */
+.about-hero{position:relative;min-height:480px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da39?w=1600&q=80') center/cover no-repeat}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,.92) 0%, rgba(0,0,0,.6) 50%, rgba(0,0,0,.2) 100%)}
+.hero-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 40%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:4rem 2rem;width:100%}
+.hero-tag{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.hero-content h1{font-family:var(--font-head);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.0;letter-spacing:-.01em;margin-bottom:1rem;max-width:700px}
+.hero-content h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:1rem;color:#888;max-width:500px;line-height:1.8;font-weight:300}
+
+/* DIVIDER LINE */
+.gold-rule{width:100%;height:2px;background:linear-gradient(to right, var(--gold), transparent);margin:0}
+
+/* STORY SECTION */
+.story{max-width:1400px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.story-text{}
+.story-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.story-text h2{font-family:var(--font-head);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem;letter-spacing:-.01em}
+.story-text h2 span{color:var(--gold)}
+.story-text p{font-size:.95rem;color:#888;line-height:1.9;font-weight:300;margin-bottom:1.25rem}
+.story-text p strong{color:var(--white);font-weight:500}
+.story-img-wrap{position:relative}
+.story-img-wrap img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.story-img-wrap::before{content:'';position:absolute;top:-1rem;left:-1rem;right:1rem;bottom:1rem;border:1px solid var(--gold);opacity:.3;z-index:0;pointer-events:none}
+.story-img-wrap img{position:relative;z-index:1}
+.img-caption{font-size:.72rem;color:var(--mid);margin-top:.75rem;letter-spacing:.04em;font-style:italic}
+
+/* TEAM */
+.team-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5rem 0}
+.team-inner{max-width:1400px;margin:0 auto;padding:0 2rem}
+.section-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;text-align:center}
+.section-title{font-family:var(--font-head);font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;text-align:center;margin-bottom:.75rem;letter-spacing:.02em}
+.section-title span{color:var(--gold)}
+.section-sub{text-align:center;color:var(--mid);font-size:.9rem;font-weight:300;max-width:560px;margin:0 auto 3.5rem;line-height:1.75}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border)}
+.team-card{background:var(--card);padding:2.5rem}
+.team-card-flag{font-size:2rem;margin-bottom:1.25rem}
+.team-card-role{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.team-card-name{font-family:var(--font-head);font-size:1.6rem;font-weight:700;margin-bottom:1.25rem;letter-spacing:.02em}
+.team-card-name span{color:var(--gold)}
+.team-card p{font-size:.88rem;color:#777;line-height:1.8;font-weight:300}
+.team-card p strong{color:var(--white);font-weight:500}
+.team-divider{display:flex;align-items:center;justify-content:center;background:var(--card2);padding:2rem;flex-direction:column;gap:.75rem}
+.team-divider-icon{font-size:1.8rem}
+.team-divider-text{font-family:var(--font-head);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-align:center}
+
+/* VALUES */
+.values-section{max-width:1400px;margin:0 auto;padding:6rem 2rem}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem}
+.value-card{background:var(--card);padding:2rem}
+.value-icon{font-size:1.5rem;margin-bottom:1rem}
+.value-title{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem}
+.value-desc{font-size:.82rem;color:#666;line-height:1.7;font-weight:300}
+
+/* CTA */
+.cta-section{background:var(--surface);border-top:1px solid var(--border);padding:5rem 2rem;text-align:center}
+.cta-section h2{font-family:var(--font-head);font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;margin-bottom:.75rem}
+.cta-section h2 span{color:var(--gold)}
+.cta-section p{color:var(--mid);font-size:.9rem;font-weight:300;margin-bottom:2rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#000;border:none;padding:.9rem 2.25rem;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:background .2s,transform .15s;cursor:pointer;display:inline-block}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid var(--border2);padding:.9rem 2.25rem;font-size:.85rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;cursor:pointer;display:inline-block}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:2rem}
+.footer-bottom{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bottom-left{font-size:.75rem;color:#333}
+.payment-icons{display:flex;gap:.5rem}
+.pay-icon{background:var(--card2);border:1px solid var(--border2);padding:.25rem .5rem;font-size:.6rem;font-weight:700;color:var(--mid)}
+
+/* CART + MOBILE NAV */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:420px;background:var(--surface);border-left:1px solid var(--border);z-index:401;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-head h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700}
+.cart-close{background:none;border:none;color:var(--mid);font-size:1.2rem;padding:.25rem}
+.cart-body{flex:1;overflow-y:auto;padding:1.25rem 1.5rem}
+.cart-empty{text-align:center;color:var(--mid);font-size:.88rem;padding:3rem 0}
+.cart-foot{padding:1.5rem;border-top:1px solid var(--border)}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:1rem}
+.cart-subtotal span{font-family:var(--font-head);font-size:1rem;font-weight:600}
+.cart-subtotal strong{color:var(--gold)}
+.checkout-btn{width:100%;background:var(--gold);color:#000;border:none;padding:1rem;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.cart-note{font-size:.72rem;color:var(--mid);text-align:center;margin-top:.75rem}
+.mobile-nav{position:fixed;top:0;left:0;bottom:0;width:300px;background:var(--surface);border-right:1px solid var(--border);z-index:401;transform:translateX(-100%);transition:transform .35s;padding:1.5rem;overflow-y:auto}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav-close{background:none;border:none;color:var(--mid);font-size:1.2rem;float:right;margin-bottom:2rem}
+.mobile-nav-links{list-style:none;clear:both}
+.mobile-nav-links a{display:block;padding:.85rem 0;font-size:.9rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--border)}
+.mobile-nav-links a:hover{color:var(--gold)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120px);background:var(--gold);color:#000;padding:.7rem 1.5rem;font-size:.8rem;font-weight:700;z-index:500;transition:transform .3s;pointer-events:none;letter-spacing:.04em;text-transform:uppercase}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* FADE IN ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up:nth-child(2){transition-delay:.1s}
+.fade-up:nth-child(3){transition-delay:.2s}
+
+@media(max-width:900px){
+  .story{grid-template-columns:1fr;gap:3rem}
+  .story-img-wrap{order:-1}
+  .team-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .mobile-menu-btn{display:block}
+  .about-hero{min-height:360px}
+  .cart-drawer,.mobile-nav{width:100%}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div class="announce">🚚 Free UK Shipping on orders over £150 — <a href="/shop.html">Shop Now</a></div>
+
+<nav>
+  <div class="nav-inner">
+    <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+    <a href="/" class="nav-logo" id="navLogo">
+      <span class="nav-logo-text" id="navLogoText">TJP <span>Works</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/shop.html">Shop</a></li>
+      <li><a href="/about.html" class="active">About</a></li>
+      <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-icon-btn" onclick="openCart()" title="Cart">
+        🛒<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="hero-photo"></div>
+  <div class="hero-content">
+    <p class="hero-tag">Est. in Japan. Built for the UK.</p>
+    <h1>Where Japanese<br>expertise meets<br><em>UK passion.</em></h1>
+    <p class="hero-sub">A direct pipeline from Japan's finest dismantlers and suppliers, straight to JDM enthusiasts across the United Kingdom.</p>
+  </div>
+</div>
+<div class="gold-rule"></div>
+
+<!-- STORY -->
+<div class="story">
+  <div class="story-text fade-up">
+    <p class="story-label">Our Story</p>
+    <h2>Built on trust,<br>driven by <span>genuine parts.</span></h2>
+    <p>TJP Works began with a simple idea — give UK enthusiasts the same access to <strong>genuine JDM parts</strong> that Japanese builders take for granted. No grey-market guesswork, no inflated markups, no compromises on quality.</p>
+    <p>At the heart of TJP Works is <strong>Tsubasa</strong>, our Japan-based sourcing expert with years of deep relationships across Japan's specialist dismantlers, OEM suppliers and aftermarket manufacturers. Tsubasa knows the market inside out — which suppliers are reliable, which parts are genuine, and how to track down the hard-to-find pieces that other importers can't touch.</p>
+    <p>On the UK side, <strong>Ash</strong> — a lifelong JDM enthusiast — manages everything from the moment a part leaves Japan. Liaising with customers, handling customs, coordinating fast UK dispatch and providing the kind of hands-on advice that only comes from actually building and running these cars.</p>
+    <p>Together, the two sides of TJP Works form something rare: a genuinely seamless bridge between Japan's parts ecosystem and the UK's passionate JDM community.</p>
+  </div>
+  <div class="story-img-wrap fade-up">
+    <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da39?w=900&q=80" alt="JDM workshop garage" loading="lazy"/>
+    <p class="img-caption">The kind of workshop knowledge that only comes from years in the game.</p>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="team-section">
+  <div class="team-inner">
+    <p class="section-label">The People</p>
+    <h2 class="section-title">Two countries. <span>One mission.</span></h2>
+    <p class="section-sub">TJP Works is a genuine collaboration — not a middleman operation. Two people, two countries, one shared obsession with Japanese cars.</p>
+    <div class="team-grid">
+      <div class="team-card fade-up">
+        <div class="team-card-flag">🇯🇵</div>
+        <div class="team-card-role">Japan — Parts Sourcing & Expertise</div>
+        <div class="team-card-name">Tsubasa <span>·</span> つばさ</div>
+        <p>Tsubasa is the engine behind TJP Works. With <strong>years of experience navigating Japan's specialist parts network</strong>, he has cultivated direct relationships with dismantlers, OEM suppliers and aftermarket manufacturers that simply can't be replicated from overseas.</p>
+        <br/>
+        <p>His expertise spans everything from rare factory options to hard-to-find consumables — if it exists in Japan, Tsubasa can find it. Every part that leaves Japan through TJP Works has been <strong>personally verified by someone who knows exactly what they're looking at.</strong></p>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-card-flag">🇬🇧</div>
+        <div class="team-card-role">United Kingdom — Operations & Customer Care</div>
+        <div class="team-card-name">Ash <span>·</span> UK</div>
+        <p>Ash handles everything on the UK side — from customs and compliance to customer communication and fast dispatch. A <strong>lifelong JDM enthusiast</strong>, he brings genuine knowledge to every conversation, not just a price list.</p>
+        <br/>
+        <p>Building on the foundations Tsubasa established in Japan, Ash ensures that the experience for UK customers is <strong>smooth, transparent and backed by real expertise</strong>. When you contact TJP Works, you're talking to someone who genuinely cares about your build.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VALUES -->
+<div class="values-section">
+  <p class="section-label" style="text-align:center">Why TJP Works</p>
+  <h2 class="section-title">What sets us <span>apart.</span></h2>
+  <div class="values-grid">
+    <div class="value-card fade-up">
+      <div class="value-icon">🔍</div>
+      <div class="value-title">Source Verified</div>
+      <p class="value-desc">Every part is sourced and checked by Tsubasa before it ships. No blind purchasing from unknown suppliers — just genuine parts from trusted relationships built over years.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-icon">✈️</div>
+      <div class="value-title">Direct from Japan</div>
+      <p class="value-desc">We have no middlemen between Japan and your door. Tsubasa's direct supplier relationships mean you get better parts at fairer prices — and we can source things others simply can't.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-icon">🛠️</div>
+      <div class="value-title">Enthusiast Knowledge</div>
+      <p class="value-desc">We're not a fulfilment warehouse. Both Tsubasa and Ash have hands-on experience with these cars. The advice we give is the advice we'd give ourselves.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-icon">🇬🇧</div>
+      <div class="value-title">UK Ready</div>
+      <p class="value-desc">All parts arrive UK VAT-paid with no surprise customs bills. We handle the import process so you don't have to think about it.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-icon">📦</div>
+      <div class="value-title">Two-Tier Stock</div>
+      <p class="value-desc">Common consumables are held in UK stock for next-day dispatch. Specialist and rare items are sourced direct from Japan on 7–14 day lead times.</p>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-icon">💬</div>
+      <div class="value-title">Real Communication</div>
+      <p class="value-desc">You can contact us with a fitment question, a sourcing request or just for advice on your build. We'll actually respond — and we'll actually know the answer.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to find the <span>right part?</span></h2>
+  <p>Browse our current stock or get in touch and we'll source exactly what you need.</p>
+  <div class="cta-btns">
+    <a href="/shop.html" class="btn-primary">Browse All Parts</a>
+    <a href="mailto:parts@tjpworks.co.uk" class="btn-ghost">Get in Touch</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">© 2025 TJP Works UK · Registered in England & Wales</div>
+    <div class="payment-icons"><span class="pay-icon">VISA</span><span class="pay-icon">MC</span><span class="pay-icon">AMEX</span><span class="pay-icon">PAYPAL</span></div>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head"><h3>Your Cart</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-body" id="cartBody"><p class="cart-empty">Your cart is empty.</p></div>
+  <div class="cart-foot">
+    <div class="cart-subtotal"><span>Subtotal</span><strong id="cartTotal">£0.00</strong></div>
+    <button class="checkout-btn" onclick="alert('Email: parts@tjpworks.co.uk')">Proceed to Checkout →</button>
+    <p class="cart-note">Shipping calculated at checkout · UK VAT included</p>
+  </div>
+</div>
+
+<!-- MOBILE NAV -->
+<div class="overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
+  <ul class="mobile-nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/shop.html">Shop All Parts</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
+  </ul>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Logo ──────────────────────────────────────────────────────
+(function(){
+  const img=new Image();
+  img.onload=function(){img.style.cssText='height:40px;width:auto';img.alt='TJP Works';const w=document.getElementById('navLogo');w.innerHTML='';w.appendChild(img);};
+  img.src='/TJPWORKSLOGO.jpg';
+})();
+
+// ── Cart (session only) ───────────────────────────────────────
+let cart=JSON.parse(sessionStorage.getItem('tjp_cart')||'[]');
+function updateCartUI(){
+  const count=cart.reduce((s,c)=>s+c.qty,0);
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('cartBadge').textContent=count;
+  document.getElementById('cartTotal').textContent='£'+total.toLocaleString();
+  const body=document.getElementById('cartBody');
+  if(!cart.length){body.innerHTML='<p class="cart-empty">Your cart is empty.</p>';return;}
+  body.innerHTML=cart.map(c=>`<div style="padding:.75rem 0;border-bottom:1px solid var(--border);font-size:.85rem"><strong>${c.title}</strong><br/><span style="color:var(--gold)">£${c.price} × ${c.qty}</span></div>`).join('');
+}
+function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+function toggleMobileNav(){document.getElementById('mobileNav').classList.toggle('open');document.getElementById('mobileOverlay').classList.toggle('open');}
+updateCartUI();
+
+// ── Fade-in on scroll ─────────────────────────────────────────
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
