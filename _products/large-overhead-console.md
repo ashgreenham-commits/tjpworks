@@ -5,7 +5,7 @@ price: 115
 original_price: ""
 compatibility: Subaru Legacy BP  2003-2009
 description: |-
-  Not standard equipment  
+  Not standard equipment 
   Hard to find
   ✔ Extra storage  
   ✔ Clean interior upgrade  
