@@ -344,7 +344,7 @@ const PLACEHOLDER_PRODUCTS = [
 ];
 
 async function loadProducts(){
-  try{const res=await fetch('/products.json');if(!res.ok)throw new Error();allProducts=await res.json();}
+  try{const res = await fetch('/products.json?v=' + Date.now());allProducts=await res.json();}
   catch{allProducts=PLACEHOLDER_PRODUCTS;}
   readURLParams();
   updateCartUI();
