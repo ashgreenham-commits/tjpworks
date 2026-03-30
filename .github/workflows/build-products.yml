@@ -28,9 +28,13 @@ jobs:
 
             const front = match[1];
             const get = (key) => {
-              const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
-              return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
-            };
+  // Handle block scalar (|- or |)
+  const blockMatch = front.match(new RegExp('^' + key + ':\\s*\\|[-]?\\n((?:[ \\t]+.+\\n?)*)', 'm'));
+  if (blockMatch) return blockMatch[1].replace(/^[ \t]+/gm, '').trim();
+  // Handle plain single line
+  const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
+  return m ? m[1].trim().replace(/^[\"']|[\"']$/g, '') : null;
+};
             const getBool = (key) => {
               const m = front.match(new RegExp('^' + key + ':\\s*(.+)$', 'm'));
               return m ? m[1].trim() === 'true' : false;
