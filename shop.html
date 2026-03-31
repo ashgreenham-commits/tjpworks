@@ -353,6 +353,7 @@ async function loadProducts(){
 function readURLParams(){
   const p=new URLSearchParams(location.search);
   if(p.get('cat')) document.getElementById('catFilter').value=p.get('cat');
+if(p.get('category')) document.getElementById('catFilter').value=p.get('category');
   if(p.get('make')) document.getElementById('makeFilter').value=p.get('make');
   if(p.get('q')) document.getElementById('shopSearch').value=p.get('q');
   if(p.get('year')||p.get('make')||p.get('model')){
