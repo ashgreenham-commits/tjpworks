@@ -2,7 +2,7 @@
 title: Arai Motorsports Lightweight Crank Pulley
 brand: Arai Motorsports
 price: 140
-compatibility: Subari EJ
+compatibility: Subaru EJ
 description: |-
   Discontinued / Hard to find
   OEM: 2,500g  
