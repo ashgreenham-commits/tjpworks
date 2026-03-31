@@ -5,46 +5,277 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TJP Works — JDM Parts Specialists</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/shared.css"/>
 <style>
-/* ── Hero ── */
-.hero{position:relative;min-height:580px;display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden;background:#050505}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#050505 0%,#0d0d0d 100%)}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9) 30%,rgba(0,0,0,.2) 100%)}
-.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,162,39,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,162,39,.03) 1px,transparent 1px);background-size:80px 80px;z-index:1}
-.hero-glow{position:absolute;right:0;top:50%;transform:translateY(-50%);width:60%;height:100%;background:radial-gradient(ellipse at 70% 50%,rgba(201,162,39,.08) 0%,transparent 65%);z-index:1}
-.hero-content{position:relative;z-index:2;padding:5rem 2rem 5rem 5vw}
-.hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.hero h1{font-family:var(--font-head);font-size:clamp(3rem,5vw,5rem);font-weight:700;line-height:1.0;letter-spacing:-.01em;margin-bottom:1.5rem}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:1rem;color:#777;max-width:480px;margin-bottom:2.5rem;line-height:1.8;font-weight:300}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
-.hero-logo-side{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;padding:2rem}
-.hero-logo-side img{width:85%;max-width:400px;filter:drop-shadow(0 0 50px rgba(201,162,39,.4)) drop-shadow(0 0 20px rgba(201,162,39,.15));animation:float 5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--surface:#0f0f0f;--card:#131313;--card2:#181818;
+  --border:#1c1c1c;--border2:#242424;
+  --gold:#C9A227;--gold-light:#E8C558;--gold-dim:rgba(201,162,39,.1);--gold-mid:rgba(201,162,39,.2);
+  --white:#EDEDED;--mid:#5a5a5a;
+  --font-head:'Rajdhani',sans-serif;--font-body:'DM Sans',sans-serif;
+  --nav-h:60px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--font-body)}
 
-/* ── Featured grid ── */
+/* ANNOUNCE */
+.announce{background:var(--gold);color:#000;text-align:center;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.4rem 1rem}
+.announce a{text-decoration:underline;color:#000}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(8,8,8,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:var(--nav-h)}
+.nav-inner{max-width:1440px;margin:0 auto;padding:0 2.5rem;height:100%;display:flex;align-items:center;gap:2rem}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:36px;width:auto}
+.nav-logo-text{font-family:var(--font-head);font-size:1.25rem;font-weight:700;letter-spacing:.06em}
+.nav-logo-text span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;list-style:none;margin-left:.5rem}
+.nav-links>li>a{display:flex;align-items:center;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);padding:0 .9rem;height:var(--nav-h);transition:color .2s;position:relative}
+.nav-links>li>a::after{content:'';position:absolute;bottom:0;left:.9rem;right:.9rem;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.nav-links>li>a:hover{color:var(--white)}
+.nav-links>li>a:hover::after,.nav-links>li>a.active::after{transform:scaleX(1)}
+.nav-links>li>a.active{color:var(--white)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:.5rem}
+.nav-search-wrap{position:relative;display:flex;align-items:center}
+.nav-search-wrap svg{position:absolute;left:.7rem;opacity:.35;pointer-events:none}
+.nav-search{background:var(--card);border:1px solid var(--border2);color:var(--white);padding:.4rem .75rem .4rem 2rem;font-size:.78rem;font-family:var(--font-body);outline:none;transition:border-color .2s;width:170px}
+.nav-search:focus{border-color:var(--gold)}
+.nav-search::placeholder{color:var(--mid)}
+.nav-icon-btn{background:none;border:none;color:var(--mid);font-size:1rem;padding:.5rem;transition:color .2s;position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px}
+.nav-icon-btn:hover{color:var(--gold)}
+.cart-badge{position:absolute;top:2px;right:2px;background:var(--gold);color:#000;border-radius:50%;width:15px;height:15px;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--white);font-size:1.2rem;padding:.4rem}
+
+/* VEHICLE BAR */
+.vehicle-bar{background:var(--card);border-bottom:2px solid var(--gold);position:sticky;top:var(--nav-h);z-index:190}
+.vehicle-bar-inner{max-width:1440px;margin:0 auto;padding:.7rem 2.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.vehicle-bar-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);white-space:nowrap;flex-shrink:0}
+.vehicle-selects{display:flex;flex:1;min-width:0}
+.v-select{flex:1;background:var(--card2);border:1px solid var(--border2);border-right:none;padding:.55rem .9rem;font-family:var(--font-body);font-size:.8rem;color:var(--white);outline:none;min-width:0;cursor:pointer}
+.v-select:last-child{border-right:1px solid var(--border2)}
+.v-select:focus{border-color:var(--gold)}
+.v-select:disabled{opacity:.3;cursor:not-allowed}
+.v-select option{background:var(--card2)}
+.v-find-btn{background:var(--gold);color:#000;border:none;padding:.55rem 1.25rem;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;transition:background .2s}
+.v-find-btn:hover{background:var(--gold-light)}
+
+/* HERO */
+.hero{position:relative;height:92vh;min-height:580px;max-height:860px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1800&q=85') center 30%/cover no-repeat}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(170deg,rgba(8,8,8,.05) 0%,rgba(8,8,8,.5) 45%,rgba(8,8,8,.97) 100%)}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px}
+.hero-accent{position:absolute;left:0;bottom:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold) 0%,transparent 55%);z-index:3}
+.hero-content{position:relative;z-index:2;max-width:1440px;margin:0 auto;padding:0 2.5rem 5rem;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-tag::before{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+.hero-h1{font-family:var(--font-head);font-size:clamp(3.2rem,7vw,7rem);font-weight:700;line-height:.95;letter-spacing:-.02em;margin-bottom:1.75rem;opacity:0;animation:fadeUp .8s .35s forwards}
+.hero-h1 em{font-style:normal;color:var(--gold);display:block}
+.hero-h1 .sub-word{display:block;font-size:.55em;font-weight:400;letter-spacing:.04em;color:rgba(237,237,237,.45);margin-top:.3rem}
+.hero-body{font-size:.95rem;color:rgba(237,237,237,.5);max-width:440px;margin-bottom:2.5rem;line-height:1.85;font-weight:300;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .65s forwards}
+.hero-scroll{position:absolute;bottom:2rem;right:2.5rem;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.35}
+.hero-scroll span{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);writing-mode:vertical-lr}
+.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--white));animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.35;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn-primary{display:inline-block;background:var(--gold);color:#000;border:none;padding:.85rem 2rem;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s,transform .15s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-101%);transition:transform .3s}
+.btn-primary:hover::after{transform:translateX(0)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-outline{display:inline-block;background:transparent;color:var(--white);border:1px solid rgba(237,237,237,.2);padding:.85rem 2rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* TICKER */
+.ticker-wrap{overflow:hidden;background:var(--bg);border-bottom:1px solid var(--border);padding:.45rem 0}
+.ticker{display:flex;white-space:nowrap;animation:ticker 40s linear infinite}
+.ticker-inner{display:flex;align-items:center;gap:1.25rem;padding:0 1.25rem;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#383838;flex-shrink:0}
+.ticker-inner .dot{color:var(--gold);font-size:.4rem}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* TRUST BAR */
+.trust-bar{border-bottom:1px solid var(--border)}
+.trust-bar-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.trust-item{display:flex;align-items:center;gap:.9rem;padding:1.4rem 1.5rem;border-right:1px solid var(--border);transition:background .2s}
+.trust-item:last-child{border-right:none}
+.trust-item:hover{background:var(--card)}
+.trust-icon-wrap{width:36px;height:36px;background:var(--gold-dim);border:1px solid var(--gold-mid);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.trust-label{font-family:var(--font-head);font-size:.85rem;font-weight:700;letter-spacing:.03em;line-height:1.2}
+.trust-sub{font-size:.7rem;color:var(--mid);margin-top:.1rem}
+
+/* SECTION */
+.section-wrap{max-width:1440px;margin:0 auto;padding:5rem 2.5rem}
+.section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);position:relative}
+.section-hd::after{content:'';position:absolute;bottom:-1px;left:0;width:60px;height:1px;background:var(--gold)}
+.section-hd h2{font-family:var(--font-head);font-size:1.8rem;font-weight:700;letter-spacing:.02em;line-height:1}
+.section-hd h2 span{color:var(--gold)}
+.view-all{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);transition:color .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
+.view-all:hover{color:var(--gold)}
+
+/* PRODUCT CARDS */
 .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.product-card{background:var(--card);position:relative;cursor:pointer;transition:background .2s;display:flex;flex-direction:column}
+.product-card:hover{background:var(--card2)}
+.product-card-img{aspect-ratio:1;background:#090909;position:relative;overflow:hidden}
+.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.product-card:hover .product-card-img img{transform:scale(1.06)}
+.placeholder-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.5rem;opacity:.12}
+.product-badge{position:absolute;top:.75rem;left:.75rem;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .6rem;z-index:2}
+.badge-sale{background:var(--gold);color:#000}
+.badge-jdm{background:rgba(59,130,246,.9);color:#fff}
+.badge-new{background:rgba(34,197,94,.9);color:#000}
+.stock-dot{position:absolute;bottom:.75rem;right:.75rem;display:flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;z-index:2;background:rgba(0,0,0,.65);padding:.2rem .5rem}
+.dot-uk::before,.dot-jp::before{content:'';width:6px;height:6px;border-radius:50%;display:inline-block}
+.dot-uk::before{background:#22c55e}
+.dot-uk{color:#4ade80}
+.dot-jp::before{background:var(--gold)}
+.dot-jp{color:var(--gold)}
+.product-card-body{padding:1.1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column;border-top:1px solid var(--border)}
+.product-brand{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.3rem}
+.product-name{font-family:var(--font-head);font-size:.95rem;font-weight:600;line-height:1.25;margin-bottom:.35rem;letter-spacing:.02em;flex:1}
+.product-compat{font-size:.7rem;color:var(--mid);margin-bottom:1rem;line-height:1.45}
+.product-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.product-price{font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:var(--gold)}
+.product-was{font-size:.72rem;color:var(--mid);text-decoration:line-through;font-weight:400;margin-left:.3rem}
+.add-btn{background:transparent;border:1px solid var(--border2);color:var(--mid);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;transition:all .2s}
+.add-btn:hover{background:var(--gold);border-color:var(--gold);color:#000}
+.add-btn.added{background:#22c55e;border-color:#22c55e;color:#fff}
 
-/* ── Blog ── */
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-.blog-card{background:var(--card);overflow:hidden;transition:border-color .2s;border-bottom:2px solid transparent;cursor:pointer}
-.blog-card:hover{border-bottom-color:var(--gold)}
-.blog-img{aspect-ratio:3/2;background:linear-gradient(135deg,#111,#1a1a1a);display:flex;align-items:center;justify-content:center;font-size:2.5rem;opacity:.4;border-bottom:1px solid var(--border)}
-.blog-body{padding:1.25rem}
-.blog-date{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem}
-.blog-title{font-family:var(--font-head);font-size:1rem;font-weight:600;line-height:1.3;letter-spacing:.02em;margin-bottom:.6rem;transition:color .2s}
-.blog-card:hover .blog-title{color:var(--gold)}
-.blog-excerpt{font-size:.78rem;color:var(--mid);line-height:1.6;font-weight:300}
+/* CATEGORY TILES */
+.cat-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border)}
+.cat-tile{position:relative;overflow:hidden;aspect-ratio:3/2;cursor:pointer;display:block}
+.cat-tile-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.cat-tile:hover .cat-tile-bg{transform:scale(1.07)}
+.cat-tile-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.05) 0%,rgba(8,8,8,.75) 100%);transition:background .3s}
+.cat-tile:hover .cat-tile-overlay{background:linear-gradient(180deg,rgba(8,8,8,.1) 0%,rgba(8,8,8,.85) 100%)}
+.cat-tile-content{position:absolute;bottom:0;left:0;right:0;padding:1.1rem 1.25rem}
+.cat-tile-name{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:.03em;line-height:1.2;transition:color .2s}
+.cat-tile:hover .cat-tile-name{color:var(--gold)}
+.cat-tile-count{font-size:.62rem;color:rgba(237,237,237,.35);margin-top:.2rem;letter-spacing:.06em;text-transform:uppercase}
+.cat-tile-arrow{position:absolute;top:.9rem;right:.9rem;font-size:.8rem;color:var(--gold);opacity:0;transform:translate(-4px,-4px);transition:all .25s}
+.cat-tile:hover .cat-tile-arrow{opacity:1;transform:translate(0,0)}
 
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}
-  .hero-logo-side{display:none}
-  .featured-grid{grid-template-columns:repeat(2,1fr)}
-  .blog-grid{grid-template-columns:1fr}
+/* EDITORIAL */
+.editorial{position:relative;overflow:hidden;background:#050505;min-height:320px;display:flex;align-items:center}
+.editorial-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat;opacity:.18}
+.editorial-grad{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.98) 35%,rgba(5,5,5,.4) 100%)}
+.editorial-content{position:relative;z-index:2;max-width:1440px;margin:0 auto;padding:4rem 2.5rem;width:100%}
+.editorial-tag{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.editorial-tag::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.editorial h2{font-family:var(--font-head);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.1;margin-bottom:1rem;max-width:480px;letter-spacing:-.01em}
+.editorial p{font-size:.85rem;color:#4a4a4a;max-width:360px;margin-bottom:2rem;line-height:1.8;font-weight:300}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.review-card{background:var(--card);padding:1.75rem;transition:background .2s}
+.review-card:hover{background:var(--card2)}
+.review-stars{color:var(--gold);font-size:.72rem;margin-bottom:.85rem;letter-spacing:.1em}
+.review-text{font-size:.82rem;color:#5a5a5a;line-height:1.75;margin-bottom:1.1rem;font-style:italic;font-weight:300}
+.review-author{font-family:var(--font-head);font-size:.88rem;font-weight:700;letter-spacing:.03em}
+.review-product{font-size:.68rem;color:var(--mid);margin-top:.2rem}
+
+/* NEWSLETTER */
+.newsletter{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 2.5rem;text-align:center}
+.newsletter h2{font-family:var(--font-head);font-size:1.8rem;font-weight:700;margin-bottom:.5rem}
+.newsletter h2 span{color:var(--gold)}
+.newsletter p{color:var(--mid);font-size:.83rem;margin-bottom:1.75rem;font-weight:300}
+.newsletter-form{display:flex;max-width:400px;margin:0 auto}
+.newsletter-input{flex:1;background:var(--card2);border:1px solid var(--border2);border-right:none;padding:.75rem 1rem;font-family:var(--font-body);font-size:.82rem;color:var(--white);outline:none}
+.newsletter-input:focus{border-color:var(--gold)}
+.newsletter-input::placeholder{color:var(--mid)}
+.newsletter-btn{background:var(--gold);color:#000;border:none;padding:.75rem 1.25rem;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;white-space:nowrap}
+.newsletter-btn:hover{background:var(--gold-light)}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem 2.5rem 2rem}
+.footer-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand-text{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:.85rem;letter-spacing:.04em}
+.footer-brand-text span{color:var(--gold)}
+.footer-desc{font-size:.78rem;color:#333;line-height:1.75;margin-bottom:1.5rem}
+.footer-socials{display:flex;gap:.5rem}
+.social-btn{width:32px;height:32px;background:var(--card2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--mid);transition:all .2s}
+.social-btn:hover{background:var(--gold);border-color:var(--gold);color:#000}
+.footer-col h4{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-col a{font-size:.78rem;color:#2e2e2e;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:1440px;margin:0 auto;padding-top:1.75rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bottom-left{font-size:.7rem;color:#252525}
+.payment-icons{display:flex;gap:.4rem}
+.pay-icon{background:var(--card2);border:1px solid var(--border2);padding:.2rem .5rem;font-size:.58rem;font-weight:700;color:var(--mid);letter-spacing:.04em}
+
+/* CART */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--surface);border-left:1px solid var(--border);z-index:401;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-head h3{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.cart-close{background:none;border:none;color:var(--mid);font-size:1.1rem;padding:.25rem;transition:color .2s;cursor:pointer}
+.cart-close:hover{color:var(--white)}
+.cart-body{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.75rem}
+.cart-empty{text-align:center;color:var(--mid);font-size:.82rem;padding:3rem 0}
+.cart-line{display:flex;gap:.9rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.cart-line-img{width:60px;height:60px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
+.cart-line-img img{width:100%;height:100%;object-fit:cover}
+.cart-line-info{flex:1;min-width:0}
+.cart-line-name{font-family:var(--font-head);font-size:.85rem;font-weight:600;line-height:1.3}
+.cart-line-compat{font-size:.68rem;color:var(--mid);margin-top:.15rem}
+.cart-line-price{font-size:.85rem;color:var(--gold);font-weight:600;margin-top:.3rem}
+.cart-line-remove{font-size:.68rem;color:var(--mid);background:none;border:none;padding:0;margin-top:.3rem;transition:color .2s;cursor:pointer}
+.cart-line-remove:hover{color:var(--white)}
+.cart-foot{padding:1.5rem;border-top:1px solid var(--border)}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.cart-subtotal span{font-family:var(--font-head);font-size:.9rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--mid)}
+.cart-subtotal strong{color:var(--gold);font-size:1.1rem;font-family:var(--font-head)}
+.checkout-btn{width:100%;background:var(--gold);color:#000;border:none;padding:.9rem;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;cursor:pointer}
+.checkout-btn:hover{background:var(--gold-light)}
+.cart-note{font-size:.68rem;color:var(--mid);text-align:center;margin-top:.75rem}
+
+/* MOBILE NAV */
+.mobile-nav{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--surface);border-right:1px solid var(--border);z-index:401;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);padding:1.5rem;overflow-y:auto}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav-close{background:none;border:none;color:var(--mid);font-size:1.1rem;float:right;margin-bottom:2rem;cursor:pointer}
+.mobile-nav-links{list-style:none;clear:both;display:flex;flex-direction:column}
+.mobile-nav-links a{display:block;padding:.8rem 0;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-nav-links a:hover{color:var(--gold)}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120px);background:var(--gold);color:#000;padding:.65rem 1.5rem;font-size:.75rem;font-weight:700;z-index:500;transition:transform .3s cubic-bezier(.4,0,.2,1);pointer-events:none;letter-spacing:.08em;text-transform:uppercase}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .trust-bar-inner{grid-template-columns:repeat(2,1fr)}
+  .trust-item:nth-child(2){border-right:none}
+  .cat-tiles{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-search-wrap{display:none}
+  .mobile-menu-btn{display:block}
+  .trust-bar-inner{grid-template-columns:1fr}
+  .trust-item{border-right:none;border-bottom:1px solid var(--border)}
+  .trust-item:last-child{border-bottom:none}
+  .hero{height:80vh}
+  .featured-grid{grid-template-columns:1fr}
+  .cart-drawer,.mobile-nav{width:100%}
+  .newsletter-form{flex-direction:column}
+  .newsletter-input{border-right:1px solid var(--border2)}
+  .footer-inner{grid-template-columns:1fr}
+  .vehicle-selects{flex-direction:column}
+  .v-select{border-right:1px solid var(--border2);border-bottom:none}
+  .v-select:last-child{border-bottom:1px solid var(--border2)}
 }
 @media(max-width:600px){
-  .featured-grid{grid-template-columns:1fr}
+  .featured-grid,.cat-tiles{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(2.8rem,12vw,4rem)}
+  .hero-ctas{flex-direction:column}
 }
 </style>
 </head>
@@ -65,18 +296,21 @@
       <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <input class="nav-search" type="text" placeholder="Search parts..." id="navSearch" onkeydown="if(event.key==='Enter')goToShopSearch(this.value)"/>
+      <div class="nav-search-wrap">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="nav-search" type="text" placeholder="Search parts..." id="navSearch" onkeydown="if(event.key==='Enter')goToShopSearch(this.value)"/>
+      </div>
       <button class="nav-icon-btn" onclick="openCart()" title="Cart">
-        🛒<span class="cart-badge" id="cartBadge">0</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- VEHICLE BAR -->
 <div class="vehicle-bar">
   <div class="vehicle-bar-inner">
-    <span class="vehicle-bar-label">🔍 Find parts for your car</span>
+    <span class="vehicle-bar-label">Find parts for your car</span>
     <div class="vehicle-selects">
       <select class="v-select" id="vYear" onchange="onYearChange()"><option value="">Year</option></select>
       <select class="v-select" id="vMake" onchange="onMakeChange()" disabled><option value="">Make</option></select>
@@ -86,34 +320,36 @@
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-img"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-accent"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">JDM Parts Specialists · UK</p>
-    <h1>Built for<br><em>Japanese</em><br>machines.</h1>
-    <p class="hero-sub">Genuine and aftermarket parts for JDM vehicles imported from Japan. Sourced direct — delivered to your door.</p>
+    <p class="hero-tag">JDM Parts Specialists · Direct from Japan</p>
+    <h1 class="hero-h1">
+      Built for
+      <em>Japanese</em>
+      <span class="sub-word">machines.</span>
+    </h1>
+    <p class="hero-body">Genuine and performance parts sourced directly from Japan. Every part verified by our specialist on the ground — delivered to your door across the UK.</p>
     <div class="hero-ctas">
-      <a href="/shop.html"><button class="btn-primary">Shop All Parts</button></a>
-      <a href="/shop.html"><button class="btn-ghost">Browse Categories</button></a>
+      <a href="/shop.html" class="btn-primary">Shop All Parts</a>
+      <a href="/about.html" class="btn-outline">Our Story</a>
     </div>
   </div>
-  <div class="hero-logo-side">
-    <img src="/TJPWORKSLOGO.jpg" alt="TJP Works" onerror="this.parentElement.style.display='none'"/>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
   </div>
 </div>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <div class="ticker-inner"><span>Free UK Shipping over £150</span><span class="dot">●</span><span>Genuine JDM Parts</span><span class="dot">●</span><span>Next Day UK Stock</span><span class="dot">●</span><span>Nissan · Toyota · Honda · Subaru · Mitsubishi</span><span class="dot">●</span><span>Expert Fitment Advice</span><span class="dot">●</span><span>UK VAT Included</span><span class="dot">●</span></div>
-    <div class="ticker-inner"><span>Free UK Shipping over £150</span><span class="dot">●</span><span>Genuine JDM Parts</span><span class="dot">●</span><span>Next Day UK Stock</span><span class="dot">●</span><span>Nissan · Toyota · Honda · Subaru · Mitsubishi</span><span class="dot">●</span><span>Expert Fitment Advice</span><span class="dot">●</span><span>UK VAT Included</span><span class="dot">●</span></div>
+    <div class="ticker-inner"><span>Free UK Shipping over £150</span><span class="dot">●</span><span>Genuine JDM Parts</span><span class="dot">●</span><span>Next Day UK Stock</span><span class="dot">●</span><span>Nissan · Toyota · Honda · Subaru · Mitsubishi · Mazda</span><span class="dot">●</span><span>Expert Fitment Advice</span><span class="dot">●</span><span>UK VAT Included</span><span class="dot">●</span><span>Direct Japan Sourcing</span><span class="dot">●</span></div>
+    <div class="ticker-inner"><span>Free UK Shipping over £150</span><span class="dot">●</span><span>Genuine JDM Parts</span><span class="dot">●</span><span>Next Day UK Stock</span><span class="dot">●</span><span>Nissan · Toyota · Honda · Subaru · Mitsubishi · Mazda</span><span class="dot">●</span><span>Expert Fitment Advice</span><span class="dot">●</span><span>UK VAT Included</span><span class="dot">●</span><span>Direct Japan Sourcing</span><span class="dot">●</span></div>
   </div>
 </div>
 
-<!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-bar-inner">
     <div class="trust-item"><div class="trust-icon-wrap">📦</div><div><div class="trust-label">Free UK Shipping</div><div class="trust-sub">On orders over £150</div></div></div>
@@ -123,69 +359,58 @@
   </div>
 </div>
 
-<!-- FEATURED PRODUCTS -->
 <div class="section-wrap">
   <div class="section-hd">
     <h2>Featured <span>Parts</span></h2>
-    <a href="/shop.html" class="view-all">View all parts →</a>
+    <a href="/shop.html" class="view-all">View all parts</a>
   </div>
   <div class="featured-grid" id="featuredGrid">
-    <p style="color:var(--mid);padding:3rem;grid-column:1/-1;text-align:center">Loading...</p>
+    <p style="color:var(--mid);padding:3rem;grid-column:1/-1;text-align:center;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase">Loading parts...</p>
   </div>
 </div>
 
-<!-- CATEGORIES -->
 <div class="section-wrap" style="padding-top:0">
   <div class="section-hd">
     <h2>Shop by <span>Category</span></h2>
-    <a href="/shop.html" class="view-all">All categories →</a>
+    <a href="/shop.html" class="view-all">All categories</a>
   </div>
-<div class="cat-tiles">
-  <a href="/shop.html?category=engine" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Engine&internalsimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Engine & Internals</div><div class="cat-tile-count" id="count-engine">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=suspension" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Suspensionimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Suspension</div><div class="cat-tile-count" id="count-suspension">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=exhaust" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Exhaust&intakeimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Exhaust & Intake</div><div class="cat-tile-count" id="count-exhaust">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=body" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Body&exteriorimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Body & Exterior</div><div class="cat-tile-count" id="count-body">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=brakes" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Brakesimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Brakes</div><div class="cat-tile-count" id="count-brakes">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=servicing" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Servicingimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Servicing</div><div class="cat-tile-count" id="count-servicing">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=cooling" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Coolingimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Cooling</div><div class="cat-tile-count" id="count-cooling">—</div></div><span class="cat-tile-arrow">→</span></a>
-  <a href="/shop.html?category=interior" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Interiorimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Interior</div><div class="cat-tile-count" id="count-interior">—</div></div><span class="cat-tile-arrow">→</span></a>
-</div>
+  <div class="cat-tiles">
+    <a href="/shop.html?category=engine" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Engine&internalsimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Engine & Internals</div><div class="cat-tile-count" id="count-engine">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=suspension" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Suspensionimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Suspension</div><div class="cat-tile-count" id="count-suspension">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=exhaust" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Exhaust&intakeimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Exhaust & Intake</div><div class="cat-tile-count" id="count-exhaust">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=body" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Body&exteriorimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Body & Exterior</div><div class="cat-tile-count" id="count-body">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=brakes" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Brakesimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Brakes</div><div class="cat-tile-count" id="count-brakes">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=servicing" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Servicingimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Servicing</div><div class="cat-tile-count" id="count-servicing">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=cooling" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Coolingimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Cooling</div><div class="cat-tile-count" id="count-cooling">—</div></div><span class="cat-tile-arrow">↗</span></a>
+    <a href="/shop.html?category=interior" class="cat-tile"><div class="cat-tile-bg" style="background:url('/Interiorimage.jpg') center/cover no-repeat"></div><div class="cat-tile-overlay"></div><div class="cat-tile-content"><div class="cat-tile-name">Interior</div><div class="cat-tile-count" id="count-interior">—</div></div><span class="cat-tile-arrow">↗</span></a>
+  </div>
 </div>
 
-<!-- EDITORIAL -->
 <div class="editorial">
-  <div class="editorial-bg"></div><div class="editorial-grid"></div><div class="editorial-glow"></div>
+  <div class="editorial-photo"></div>
+  <div class="editorial-grad"></div>
   <div class="editorial-content">
     <p class="editorial-tag">Direct Sourcing</p>
-    <h2>Can't find the part you need?<br>We'll source it from Japan.</h2>
-    <p>Direct relationships with dismantlers, manufacturers and dealers across Japan. Lead time 7–14 days to your door.</p>
-    <button class="btn-primary" onclick="window.location.href='mailto:parts@tjpworks.co.uk'">Request a Part →</button>
+    <h2>Can't find what you need?<br>We'll source it from Japan.</h2>
+    <p>Direct relationships with dismantlers, manufacturers and dealers across Japan. Lead time 7–14 days to your door, UK VAT included.</p>
+    <a href="mailto:parts@tjpworks.co.uk" class="btn-primary">Request a Part</a>
   </div>
 </div>
 
-<!-- REVIEWS -->
 <div class="section-wrap">
-  <div class="section-hd"><h2>What our <span>Customers</span> say</h2><span class="view-all">★★★★★ 4.9 · 120+ Reviews</span></div>
+  <div class="section-hd">
+    <h2>Customer <span>Reviews</span></h2>
+    <span style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)">★★★★★ 4.9 average</span>
+  </div>
   <div class="reviews-grid">
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Brilliant service — ordered an SR20DET turbo housing on Tuesday, arrived Thursday. Genuine OEM part, perfect fitment on my S14."</p><div class="review-author">James T.</div><div class="review-product">Turbine Housing SR20DET</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Sourced a rare EJ20 short block from Japan for me — kept me updated throughout. Arrived well packaged and exactly as described."</p><div class="review-author">Mark R.</div><div class="review-product">EJ20 Short Block Assembly</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Checked compatibility before I ordered, saved me from buying the wrong part. The HKS exhaust sounds incredible on the EK9."</p><div class="review-author">Danny F.</div><div class="review-product">Cat-Back Exhaust System</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Ordered an SR20DET turbo housing on Tuesday, arrived Thursday. Genuine OEM part, perfect fitment on my S14. Couldn't fault the service."</p><div class="review-author">James T.</div><div class="review-product">Turbine Housing SR20DET</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Sourced a rare EJ20 short block from Japan for me — kept me updated throughout the whole process. Arrived well packaged and exactly as described."</p><div class="review-author">Mark R.</div><div class="review-product">EJ20 Short Block Assembly</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Checked compatibility before I ordered which saved me buying the wrong part. The HKS exhaust sounds incredible on the EK9. Will definitely be back."</p><div class="review-author">Danny F.</div><div class="review-product">Cat-Back Exhaust System</div></div>
   </div>
 </div>
 
-<!-- BLOG -->
-<div class="section-wrap" style="padding-top:0">
-  <div class="section-hd"><h2>From the <span>Blog</span></h2><a href="#" class="view-all">View all →</a></div>
-  <div class="blog-grid">
-    <div class="blog-card"><div class="blog-img">📰</div><div class="blog-body"><div class="blog-date">Coming Soon</div><div class="blog-title">Best Upgrades for Your Nissan Skyline R33</div><p class="blog-excerpt">From coilovers to intercoolers — our guide to the most impactful JDM upgrades for the R33 GT-R.</p></div></div>
-    <div class="blog-card"><div class="blog-img">📰</div><div class="blog-body"><div class="blog-date">Coming Soon</div><div class="blog-title">Top Suspension Upgrades for Imported Subaru Imprezas</div><p class="blog-excerpt">Handling setup advice for GC8 and GD-chassis Imprezas on UK roads.</p></div></div>
-    <div class="blog-card"><div class="blog-img">📰</div><div class="blog-body"><div class="blog-date">Coming Soon</div><div class="blog-title">How We Source Parts Directly from Japan</div><p class="blog-excerpt">A behind-the-scenes look at our sourcing relationships in Tokyo, Osaka and Nagoya.</p></div></div>
-  </div>
-</div>
-
-<!-- NEWSLETTER -->
 <div class="newsletter">
-  <h2>Stay in the <span style="color:var(--gold)">loop</span></h2>
+  <h2>Stay in the <span>loop</span></h2>
   <p>New parts, restocks and JDM news — straight to your inbox.</p>
   <div class="newsletter-form">
     <input class="newsletter-input" type="email" placeholder="your@email.com"/>
@@ -193,13 +418,12 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="/TJPWORKSLOGO.jpg" alt="TJP Works" onerror="this.style.display='none';document.getElementById('ftLogoTxt').style.display='block'"/>
+    <div>
+      <img src="/TJPWORKSLOGO.jpg" alt="TJP Works" style="height:34px;width:auto;margin-bottom:1rem" onerror="this.style.display='none';document.getElementById('ftLogoTxt').style.display='block'"/>
       <div class="footer-brand-text" id="ftLogoTxt" style="display:none">TJP <span>Works</span> UK</div>
-      <p class="footer-desc">JDM parts specialists for imported Japanese vehicles in the UK. Sourced direct, genuine, UK-ready.</p>
+      <p class="footer-desc">JDM parts specialists for imported Japanese vehicles across the UK. Sourced direct, verified genuine, UK-ready.</p>
       <div class="footer-socials"><a class="social-btn" href="#">📷</a><a class="social-btn" href="#">👤</a><a class="social-btn" href="#">▶</a></div>
     </div>
     <div class="footer-col"><h4>Shop</h4><ul><li><a href="/shop.html?category=engine">Engine</a></li><li><a href="/shop.html?category=suspension">Suspension</a></li><li><a href="/shop.html?category=exhaust">Exhaust</a></li><li><a href="/shop.html?category=brakes">Brakes</a></li><li><a href="/shop.html?category=servicing">Servicing</a></li></ul></div>
@@ -212,7 +436,6 @@
   </div>
 </footer>
 
-<!-- CART -->
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-head"><h3>Your Cart</h3><button class="cart-close" onclick="closeCart()">✕</button></div>
@@ -223,8 +446,6 @@
     <p class="cart-note">Shipping calculated at checkout · UK VAT included</p>
   </div>
 </div>
-
-<!-- MOBILE NAV -->
 <div class="overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
@@ -239,89 +460,60 @@
     <li><a href="mailto:parts@tjpworks.co.uk">Contact</a></li>
   </ul>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script src="/shared.js"></script>
 <script>
-// ── Logo ──────────────────────────────────────────────────────
 (function(){
-  const img = new Image();
-  img.onload = function(){
-    img.style.cssText = 'height:40px;width:auto';
-    img.alt = 'TJP Works';
-    const wrap = document.getElementById('navLogo');
-    wrap.innerHTML = '';
-    wrap.appendChild(img);
-  };
-  img.src = '/TJPWORKSLOGO.jpg';
+  const img=new Image();
+  img.onload=function(){img.style.cssText='height:36px;width:auto';img.alt='TJP Works';const w=document.getElementById('navLogo');w.innerHTML='';w.appendChild(img);};
+  img.src='/TJPWORKSLOGO.jpg';
 })();
 
-// ── Vehicle selector ──────────────────────────────────────────
 (function(){
-  const sel = document.getElementById('vYear');
-  for(let y = 2024; y >= 1980; y--){
-    const o = document.createElement('option');
-    o.value = y; o.textContent = y;
-    sel.appendChild(o);
-  }
+  const sel=document.getElementById('vYear');
+  for(let y=2024;y>=1980;y--){const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);}
 })();
 
 function onYearChange(){
-  const year = parseInt(document.getElementById('vYear').value);
-  const makeSel = document.getElementById('vMake');
-  makeSel.innerHTML = '<option value="">Make</option>';
-  document.getElementById('vModel').innerHTML = '<option value="">Model</option>';
-  document.getElementById('vModel').disabled = true;
-  if(!year){ makeSel.disabled = true; return; }
-  Object.entries(VEHICLE_DATA).forEach(([k,v])=>{
-    const o = document.createElement('option');
-    o.value = k; o.textContent = v.label;
-    makeSel.appendChild(o);
-  });
-  makeSel.disabled = false;
+  const year=parseInt(document.getElementById('vYear').value);
+  const ms=document.getElementById('vMake');
+  ms.innerHTML='<option value="">Make</option>';
+  document.getElementById('vModel').innerHTML='<option value="">Model</option>';
+  document.getElementById('vModel').disabled=true;
+  if(!year){ms.disabled=true;return;}
+  Object.entries(VEHICLE_DATA).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=v.label;ms.appendChild(o);});
+  ms.disabled=false;
 }
-
 function onMakeChange(){
-  const make = document.getElementById('vMake').value;
-  const modelSel = document.getElementById('vModel');
-  modelSel.innerHTML = '<option value="">Model</option>';
-  if(!make){ modelSel.disabled = true; return; }
-  VEHICLE_DATA[make]?.models.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m; o.textContent = m;
-    modelSel.appendChild(o);
-  });
-  modelSel.disabled = false;
+  const make=document.getElementById('vMake').value;
+  const modelSel=document.getElementById('vModel');
+  modelSel.innerHTML='<option value="">Model</option>';
+  if(!make){modelSel.disabled=true;return;}
+  VEHICLE_DATA[make]?.models.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;modelSel.appendChild(o);});
+  modelSel.disabled=false;
 }
-
 function findPartsByVehicle(){
-  const year  = document.getElementById('vYear').value;
-  const make  = document.getElementById('vMake').value;
-  const model = document.getElementById('vModel').value;
-  if(!year && !make){ showToast('Please select a year or make'); return; }
-  const params = new URLSearchParams();
-  if(year)  params.set('year', year);
-  if(make)  params.set('make', make);
-  if(model) params.set('model', model);
-  window.location.href = '/shop.html?' + params.toString();
+  const year=document.getElementById('vYear').value;
+  const make=document.getElementById('vMake').value;
+  const model=document.getElementById('vModel').value;
+  if(!year&&!make){showToast('Please select a year or make');return;}
+  const params=new URLSearchParams();
+  if(year)params.set('year',year);
+  if(make)params.set('make',make);
+  if(model)params.set('model',model);
+  window.location.href='/shop.html?'+params.toString();
 }
-
 function goToShopSearch(val){
-  if(val.trim()) window.location.href = '/shop.html?search=' + encodeURIComponent(val.trim());
+  if(val.trim())window.location.href='/shop.html?search='+encodeURIComponent(val.trim());
 }
 
-// ── Load featured products ────────────────────────────────────
-function productCardHTML(p, allProducts) {
-  const id = getProductId(p);
-  const imgHTML = p.image
-    ? `<img src="${p.image}" alt="${p.title}"/>`
-    : `<span class="placeholder-emoji">${p.emoji || '⚙️'}</span>`;
-  const badge = p.badge ? `<span class="product-badge badge-${p.badge.toLowerCase()==='sale'?'sale':p.badge.toLowerCase()==='jdm'?'jdm':'new'}">${p.badge}</span>` : '';
-  const stock = p.stock==='uk'
-    ? '<span class="stock-dot dot-uk">UK Stock</span>'
-    : '<span class="stock-dot dot-jp">Japan</span>';
-  const was = p.original_price ? `<span class="product-was">£${Number(p.original_price).toLocaleString()}</span>` : '';
+function productCardHTML(p){
+  const id=getProductId(p);
+  const imgHTML=p.image?`<img src="${p.image}" alt="${p.title}"/>`:`<span class="placeholder-emoji">${p.emoji||'⚙️'}</span>`;
+  const badge=p.badge?`<span class="product-badge badge-${p.badge.toLowerCase()==='sale'?'sale':p.badge.toLowerCase()==='jdm'?'jdm':'new'}">${p.badge}</span>`:'';
+  const stock=p.stock==='uk'?'<span class="stock-dot dot-uk">UK Stock</span>':'<span class="stock-dot dot-jp">Japan</span>';
+  const was=p.original_price?`<span class="product-was">£${Number(p.original_price).toLocaleString()}</span>`:'';
   return `
     <div class="product-card" onclick="window.location.href='/product.html?id=${id}'">
       <div class="product-card-img">${badge}${imgHTML}${stock}</div>
@@ -331,35 +523,24 @@ function productCardHTML(p, allProducts) {
         <div class="product-compat">Fits: ${p.compatibility}</div>
         <div class="product-foot">
           <div class="product-price">£${Number(p.price).toLocaleString()}${was}</div>
-          <button class="add-btn" onclick="event.stopPropagation();addToCart('${id}', window._products)">Add</button>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('${id}',window._products)">Add</button>
         </div>
       </div>
     </div>`;
 }
 
-loadProducts().then(products => {
-  window._products = products;
-
-  // Update category counts
-  ['engine','suspension','exhaust','body','brakes','servicing','cooling','interior'].forEach(cat => {
-    const el = document.getElementById('count-' + cat);
-    if(el){
-      const n = products.filter(p => p.category === cat).length;
-      el.textContent = n + ' part' + (n !== 1 ? 's' : '');
-    }
+loadProducts().then(products=>{
+  window._products=products;
+  ['engine','suspension','exhaust','body','brakes','servicing','cooling','interior'].forEach(cat=>{
+    const el=document.getElementById('count-'+cat);
+    if(el){const n=products.filter(p=>p.category===cat).length;el.textContent=n+' part'+(n!==1?'s':'');}
   });
-
-  // Get featured products — manual first, fallback to newest
-  let featured = products.filter(p => p.featured === true || p.featured === 'true');
-  if(!featured.length) featured = [...products].reverse().slice(0, 6);
-  featured = featured.slice(0, 6);
-
-  const grid = document.getElementById('featuredGrid');
-  if(!featured.length){
-    grid.innerHTML = '<p style="color:var(--mid);padding:3rem;grid-column:1/-1;text-align:center">No featured products yet — add some in the CMS.</p>';
-    return;
-  }
-  grid.innerHTML = featured.map(p => productCardHTML(p, products)).join('');
+  let featured=products.filter(p=>p.featured===true||p.featured==='true');
+  if(!featured.length)featured=[...products].reverse().slice(0,6);
+  featured=featured.slice(0,6);
+  const grid=document.getElementById('featuredGrid');
+  if(!featured.length){grid.innerHTML='<p style="color:var(--mid);padding:3rem;grid-column:1/-1;text-align:center;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em">No featured products yet.</p>';return;}
+  grid.innerHTML=featured.map(productCardHTML).join('');
 });
 </script>
 </body>
